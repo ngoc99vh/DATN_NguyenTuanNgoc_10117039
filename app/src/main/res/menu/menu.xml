@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:andorid="http://schemas.android.com/tools"
+    >
+
+    <item
+        android:id="@+id/trangchu_fragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Trang chủ"
+        />
+    <item
+        android:id="@+id/danhmuc_fragment"
+        android:icon="@drawable/ic_baseline_add_circle_24"
+        android:title="Đăng tin" />
+    >
+    <item
+        android:icon="@drawable/account"
+        android:id="@+id/account_fragment"
+        android:title="Cá nhân" />
+
+</menu>
