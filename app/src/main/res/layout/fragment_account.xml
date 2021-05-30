@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.Account">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_taikhoan"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:title="Tài Khoản"
+        app:titleTextColor="#ffffff"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_all">
+    </androidx.appcompat.widget.Toolbar>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <ImageView
+            android:id="@+id/img_tkfm"
+            android:layout_width="80dp"
+            android:src="@drawable/account"
+            android:layout_height="80dp"
+            android:layout_margin="3dp" />
+
+        <TextView
+            android:id="@+id/tv_userName_Account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginRight="3dp"
+            android:layout_toRightOf="@id/img_tkfm"
+            android:fontFamily="monospace"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_phone_Account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:layout_below="@id/tv_userName_Account"
+            android:layout_alignLeft="@id/tv_userName_Account"
+            android:fontFamily="monospace"
+            android:text=""
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/tv_userName_Account"
+            android:fontFamily="monospace"
+            android:text="Đăng nhập/Đăng ký"
+            android:textColor="@color/color_all"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng suất" />
+
+
+</LinearLayout>
