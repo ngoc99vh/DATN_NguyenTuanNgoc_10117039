@@ -3,14 +3,12 @@ package com.example.datn_nguyentuanngoc_10117039.Model;
 public class Posts {
 
     private String mName;
-    private String mImageUrl;
+    //    private String mImageUrl;
+    private Images images;
 
-    public Posts() {
-    }
-
-    public Posts(String mName, String mImageUrl) {
+    public Posts(String mName, Images images) {
         this.mName = mName;
-        this.mImageUrl = mImageUrl;
+        this.images = images;
     }
 
     public String getmName() {
@@ -21,11 +19,11 @@ public class Posts {
         this.mName = mName;
     }
 
-    public String getmImageUrl() {
-        return mImageUrl;
+    public Images getImages() {
+        return images;
     }
 
-    public void setmImageUrl(String mImageUrl) {
-        this.mImageUrl = mImageUrl;
+    public void setImages(Images images) {
+        this.images = images;
     }
 }

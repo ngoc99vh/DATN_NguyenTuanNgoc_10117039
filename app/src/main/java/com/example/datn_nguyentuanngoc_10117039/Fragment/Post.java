@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.LoginActivity;
+import com.example.datn_nguyentuanngoc_10117039.Model.Images;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,10 +37,11 @@ import com.squareup.picasso.Picasso;
 
 public class Post extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Button btn_choose, btn_upload;
+    private Button btn_choose, btn_upload, btn_choose2;
     EditText edt_fileName;
-    ImageView imgPost;
+    ImageView imgPost, imgPost2;
     Uri imgUri;
+    Uri imgUri2;
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -57,9 +59,11 @@ public class Post extends Fragment {
 
         // ánh xạ
         btn_choose = view.findViewById(R.id.btn_choose_file);
+        btn_choose2 = view.findViewById(R.id.btn_choose_file2);
         btn_upload = view.findViewById(R.id.btn_upload_file);
         edt_fileName = view.findViewById(R.id.edt_file_name);
         imgPost = view.findViewById(R.id.imagePost);
+        imgPost2 = view.findViewById(R.id.imagePost2);
 
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
@@ -69,6 +73,13 @@ public class Post extends Fragment {
          userName = saveInfoAccount.getString("userName", null);
         if (!TextUtils.isEmpty(userName)) {
             btn_choose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openFileChooser();
+                }
+            });
+
+            btn_choose2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     openFileChooser();
@@ -94,7 +105,7 @@ public class Post extends Fragment {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
-    @Override
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK
@@ -103,6 +114,8 @@ public class Post extends Fragment {
             Picasso.with(getActivity()).load(imgUri).into(imgPost);
         }
     }
+
+
 
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getActivity().getContentResolver();
@@ -117,11 +130,11 @@ public class Post extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
-                            Posts post = new Posts(edt_fileName.getText().toString().trim(),
-                                    taskSnapshot.getUploadSessionUri().toString());
-//                            String uploadId = mDatabaseRef.push().getKey();
+
+                            Images images = new Images(taskSnapshot.getUploadSessionUri().toString());
+                            Posts post = new Posts(edt_fileName.getText().toString().trim(),images);
                             mDatabaseRef.child(userName).setValue(post);
+                            Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
