@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment.Post">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/btn_choose_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/gray"
+        android:text="Choose File" />
+
+    <EditText
+        android:id="@+id/edt_file_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_toEndOf="@+id/btn_choose_file"
+        android:hint="Enter file name">
+    </EditText>
+    <ImageView
+        android:id="@+id/imagePost"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@+id/edt_file_name"
+        android:layout_above="@+id/btn_upload_file"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ImageView>
+    <Button
+        android:id="@+id/btn_upload_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/gray"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Upload" />
 
-</FrameLayout>
+</RelativeLayout>
