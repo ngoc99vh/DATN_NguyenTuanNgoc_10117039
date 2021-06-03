@@ -42,6 +42,7 @@ public class Post extends Fragment {
     ImageView imgPost, imgPost2;
     Uri imgUri;
     Uri imgUri2;
+    int check = 0;
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -70,11 +71,12 @@ public class Post extends Fragment {
 
         // click
         saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
-         userName = saveInfoAccount.getString("userName", null);
+        userName = saveInfoAccount.getString("userName", null);
         if (!TextUtils.isEmpty(userName)) {
             btn_choose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    check = 1;
                     openFileChooser();
                 }
             });
@@ -82,6 +84,7 @@ public class Post extends Fragment {
             btn_choose2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    check = 2;
                     openFileChooser();
                 }
             });
@@ -111,7 +114,12 @@ public class Post extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK
                 && data != null && data.getData() != null) {
             imgUri = data.getData();
-            Picasso.with(getActivity()).load(imgUri).into(imgPost);
+            if(check == 1){
+                Picasso.with(getActivity()).load(imgUri).into(imgPost);
+            }else {
+                Picasso.with(getActivity()).load(imgUri).into(imgPost2);
+            }
+
         }
     }
 
@@ -145,8 +153,5 @@ public class Post extends Fragment {
         } else {
             Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
-    }
-    public void checkData() {
-
     }
 }
