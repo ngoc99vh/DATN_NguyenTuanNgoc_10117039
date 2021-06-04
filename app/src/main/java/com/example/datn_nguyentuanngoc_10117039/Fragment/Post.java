@@ -26,6 +26,7 @@ import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.annotations.NotNull;
@@ -51,6 +52,7 @@ public class Post extends Fragment {
     private static SharedPreferences saveInfoAccount;
     private SharedPreferences.Editor editor;
     String userName = "";
+    Images images;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,15 +136,18 @@ public class Post extends Fragment {
     private void uploadFile() {
         if (imgUri != null) {
             StorageReference reference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(imgUri));
-            reference.putFile(imgUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            Images images = new Images(taskSnapshot.getUploadSessionUri().toString());
-                            Posts post = new Posts(edt_fileName.getText().toString().trim(),images);
-                            mDatabaseRef.child(userName).setValue(post);
-                            Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
+                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    images = new Images(uri.toString());
+                                    Posts post = new Posts(edt_fileName.getText().toString().trim(),images);
+                                    mDatabaseRef.child(userName).setValue(post);
+                                    Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

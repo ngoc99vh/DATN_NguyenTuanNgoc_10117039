@@ -6,6 +6,9 @@ public class Posts {
     //    private String mImageUrl;
     private Images images;
 
+    public Posts() {
+    }
+
     public Posts(String mName, Images images) {
         this.mName = mName;
         this.images = images;
