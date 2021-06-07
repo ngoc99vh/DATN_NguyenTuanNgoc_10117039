@@ -9,10 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.ProducrActivity;
 import com.example.datn_nguyentuanngoc_10117039.Adapter.ProductAdapter;
+import com.example.datn_nguyentuanngoc_10117039.Dialog.Location;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +30,8 @@ import java.util.List;
 
 public class Home extends Fragment {
     RecyclerView rcl;
+    ImageView img_location;
+    TextView tv_location;
     private DatabaseReference mDatabaseRef;
     private ProductAdapter mAdapter;
     private ArrayList<Posts> mUploads;
@@ -38,12 +44,20 @@ public class Home extends Fragment {
 
 
         // ánh xạ
+
         rcl = view.findViewById(R.id.rcl_home);
+        img_location = view.findViewById(R.id.img_location);
+        tv_location = view.findViewById(R.id.tv_location);
+
+
+        // Sự kiện
+
+        /// Sự kiện load images
         rcl.setHasFixedSize(true);
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        mDatabaseRef.orderByChild("mName").equalTo("ngoc99vh").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -61,6 +75,20 @@ public class Home extends Fragment {
             }
         });
 
+
+        /// Sự kiện lấy địa chỉ
+
+        img_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onpenDialogLoction();
+            }
+        });
+
         return view;
+    }
+    public void onpenDialogLoction(){
+        Location exampleDialog = new Location();
+        exampleDialog.show(getFragmentManager(), "example dialog");
     }
 }

@@ -1,7 +1,6 @@
 package com.example.datn_nguyentuanngoc_10117039.Model;
 
 public class Posts {
-
     private String mName;
     //    private String mImageUrl;
     private Images images;

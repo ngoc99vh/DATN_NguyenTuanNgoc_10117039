@@ -143,8 +143,10 @@ public class Post extends Fragment {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     images = new Images(uri.toString());
-                                    Posts post = new Posts(edt_fileName.getText().toString().trim(),images);
-                                    mDatabaseRef.child(userName).setValue(post);
+                                    Posts post = new Posts(userName,images);
+                                    String uploadId = mDatabaseRef.push().getKey();
+                                    assert uploadId != null;
+                                    mDatabaseRef.child(uploadId).setValue(post);
                                     Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
                                 }
                             });
