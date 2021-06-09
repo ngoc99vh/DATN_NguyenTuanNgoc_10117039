@@ -10,19 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.datn_nguyentuanngoc_10117039.Model.Images;
-import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
+import com.example.datn_nguyentuanngoc_10117039.Dialog.Location;
+import com.example.datn_nguyentuanngoc_10117039.Model.Location_model;
 import com.example.datn_nguyentuanngoc_10117039.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
-    public ArrayList<Posts> listsanphams;
+public class Location_Adapter extends RecyclerView.Adapter<Location_Adapter.ViewHolder> {
+    public ArrayList<Location_model> listsanphams;
     Context context;
 
-    public ProductAdapter(ArrayList<Posts> listsanphams, Context context) {
+    public Location_Adapter(ArrayList<Location_model> listsanphams, Context context) {
         this.listsanphams = listsanphams;
         this.context = context;
     }
@@ -31,21 +29,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.from(viewGroup.getContext()).inflate(R.layout.item_product, viewGroup, false);
+        View view = inflater.from(viewGroup.getContext()).inflate(R.layout.item_dialog_location, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Posts uploadCurrent = listsanphams.get(position);
-        holder.textViewName.setText(uploadCurrent.getmName());
-        String test = uploadCurrent.getImages().getImage1();
-        String test2 = uploadCurrent.getmName();
-        Picasso.with(context)
-                .load(test)
-                .fit()
-                .centerCrop()
-                .into(holder.imageView);
+        Location_model uploadCurrent = listsanphams.get(position);
+        holder.textViewName.setText(uploadCurrent.getName());
+
     }
 
     @Override
@@ -60,18 +52,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewName;
-        public ImageView imageView;
 
         public ViewHolder(View view) {
             super(view);
             textViewName = itemView.findViewById(R.id.tv_name_itP);
-            imageView = itemView.findViewById(R.id.image_itP);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    
-                }
-            });
+
         }
     }
 }
+

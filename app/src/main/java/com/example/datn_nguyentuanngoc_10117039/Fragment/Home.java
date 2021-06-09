@@ -1,7 +1,10 @@
 package com.example.datn_nguyentuanngoc_10117039.Fragment;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.ProducrActivity;
+import com.example.datn_nguyentuanngoc_10117039.Adapter.Location_Adapter;
 import com.example.datn_nguyentuanngoc_10117039.Adapter.ProductAdapter;
 import com.example.datn_nguyentuanngoc_10117039.Dialog.Location;
+import com.example.datn_nguyentuanngoc_10117039.Model.Location_model;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +40,10 @@ public class Home extends Fragment {
     private DatabaseReference mDatabaseRef;
     private ProductAdapter mAdapter;
     private ArrayList<Posts> mUploads;
+
+
+    private ArrayList<Location_model> listLocations;
+    private Location_Adapter location_adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +66,7 @@ public class Home extends Fragment {
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-        mDatabaseRef.orderByChild("mName").equalTo("ngoc99vh").addValueEventListener(new ValueEventListener() {
+        mDatabaseRef.orderByChild("mName").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -81,14 +90,47 @@ public class Home extends Fragment {
         img_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onpenDialogLoction();
+                createAndShowDialog(getContext());
             }
         });
 
         return view;
     }
-    public void onpenDialogLoction(){
-        Location exampleDialog = new Location();
-        exampleDialog.show(getFragmentManager(), "example dialog");
+//    public void onpenDialogLoction(){
+//        DialogFragment dialogFragment = new Location();
+//        dialogFragment.show(getFragmentManager(), "example dialog");
+//
+//    }
+    public void createAndShowDialog(Context context) {
+
+        Dialog dialog = new Dialog(context, R.style.FullScreenDialog);
+        dialog.setContentView(R.layout.dialog_location);
+        RecyclerView rcl_dialogLocation = dialog.findViewById(R.id.rcl_location);
+        rcl_dialogLocation.setHasFixedSize(true);
+        rcl_dialogLocation.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listLocations = new ArrayList<>();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("local");
+        mDatabaseRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Location_model upload = postSnapshot.getValue(Location_model.class);
+                    listLocations.add(upload);
+                }
+                location_adapter = new Location_Adapter(listLocations, getContext());
+                rcl_dialogLocation.setAdapter(location_adapter);
+                location_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        dialog.getWindow().setAttributes(layoutParams);
+        dialog.show();
     }
 }
