@@ -1,6 +1,7 @@
 package com.example.datn_nguyentuanngoc_10117039.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+    private static final String TAG = "locnt";
     public ArrayList<Posts> listsanphams;
     Context context;
 
@@ -39,13 +41,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Posts uploadCurrent = listsanphams.get(position);
         holder.textViewName.setText(uploadCurrent.getmName());
-        String test = uploadCurrent.getImages().getImage1();
-        String test2 = uploadCurrent.getmName();
-        Picasso.with(context)
-                .load(test)
-                .fit()
-                .centerCrop()
-                .into(holder.imageView);
+//        String test = uploadCurrent.getImages().getImageByID(1);
+//        String test2 = uploadCurrent.getImages().getImageByID(1);
+//        Log.d(TAG, "img: "+test);
+//        Picasso.with(context)
+//                .load(test)
+//                .fit()
+//                .centerCrop()
+//                .into(holder.imageView);
     }
 
     @Override
@@ -66,12 +69,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             super(view);
             textViewName = itemView.findViewById(R.id.tv_name_itP);
             imageView = itemView.findViewById(R.id.image_itP);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    
-                }
-            });
+
         }
     }
 }

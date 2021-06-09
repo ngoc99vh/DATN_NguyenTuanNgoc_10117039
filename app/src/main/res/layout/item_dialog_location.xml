@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_margin="8dp">
+    android:layout_height="50dp"
+    android:backgroundTint="@color/white"
 
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/img_location"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_baseline_location_on_24" />
+    android:layout_marginBottom="1dp">
 
-    <TextView
-        android:layout_gravity="center"
-        android:id="@+id/tv_name_itP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hà Nội"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <ImageView
+
+            android:id="@+id/img_location"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_location_24" />
+
+        <TextView
+            android:id="@+id/tv_name_itP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hà Nội"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_marginLeft="100dp"
+            android:id="@+id/tv_name_itP1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hà Nội"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

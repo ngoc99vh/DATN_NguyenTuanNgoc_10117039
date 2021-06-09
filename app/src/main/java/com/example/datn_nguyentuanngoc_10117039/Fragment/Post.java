@@ -10,7 +10,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,13 +40,16 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class Post extends Fragment {
+    private static final String TAG = "locnt";
+
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btn_choose, btn_upload, btn_choose2;
     EditText edt_fileName;
     ImageView imgPost, imgPost2;
-    Uri imgUri;
+    Uri imgUri1;
     Uri imgUri2;
     int check = 0;
+    private int counter;
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -71,6 +77,8 @@ public class Post extends Fragment {
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
 
+        images = new Images();
+        counter = 0;
         // click
         saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
         userName = saveInfoAccount.getString("userName", null);
@@ -103,6 +111,20 @@ public class Post extends Fragment {
         return view;
     }
 
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            Log.d(TAG, "handleMessage: "+msg.what);
+            switch (msg.what){
+                case 1:
+                    postFile();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -115,11 +137,13 @@ public class Post extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK
                 && data != null && data.getData() != null) {
-            imgUri = data.getData();
+
             if(check == 1){
-                Picasso.with(getActivity()).load(imgUri).into(imgPost);
+                imgUri1 = data.getData();
+                Picasso.with(getActivity()).load(imgUri1).into(imgPost);
             }else {
-                Picasso.with(getActivity()).load(imgUri).into(imgPost2);
+                imgUri2 = data.getData();
+                Picasso.with(getActivity()).load(imgUri2).into(imgPost2);
             }
 
         }
@@ -134,24 +158,24 @@ public class Post extends Fragment {
     }
 
     private void uploadFile() {
-        if (imgUri != null) {
-            StorageReference reference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(imgUri));
-            reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        if (imgUri1 != null) {
+            StorageReference reference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(imgUri1));
+            reference.putFile(imgUri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d(TAG, "onSuccess: 1");
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    images = new Images(uri.toString());
-                                    Posts post = new Posts(userName,images);
-                                    String uploadId = mDatabaseRef.push().getKey();
-                                    assert uploadId != null;
-                                    mDatabaseRef.child(uploadId).setValue(post);
-                                    Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        public void onSuccess(Uri uri) {
+                            Log.d(TAG, "onSuccess: 2");
+                            images.addImage(uri.toString());
+                            if (images.getNumberImages() == 2){
+                                mHandler.sendEmptyMessage(1);
+                            }
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull @NotNull Exception e) {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -160,5 +184,43 @@ public class Post extends Fragment {
         } else {
             Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
+
+        if (imgUri2 != null) {
+            StorageReference reference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(imgUri2));
+            reference.putFile(imgUri2).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d(TAG, "onSuccess: 3");
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Log.d(TAG, "onSuccess: 4");
+                            images.addImage(uri.toString());
+                            if (images.getNumberImages() == 2){
+                                mHandler.sendEmptyMessage(1);
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull @NotNull Exception e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void postFile(){
+        Posts post = new Posts(userName,images);
+        Log.d(TAG, "images: "+images.getNumberImages());
+        String uploadId = mDatabaseRef.push().getKey();
+        assert uploadId != null;
+        mDatabaseRef.child(uploadId).setValue(post);
+
+
+        Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
     }
 }
