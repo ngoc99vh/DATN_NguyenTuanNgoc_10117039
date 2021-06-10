@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Message;
@@ -19,11 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.LoginActivity;
+import com.example.datn_nguyentuanngoc_10117039.Activity.MainActivity;
 import com.example.datn_nguyentuanngoc_10117039.Model.Images;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
@@ -45,13 +48,14 @@ public class Post extends Fragment {
     private static final String TAG = "locnt";
 
     private static final int PICK_IMAGE_REQUEST = 1;
-    private Button btn_choose, btn_upload, btn_choose2;
-    EditText edt_fileName;
+    private Button btn_upload;
+    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce;
     ImageView imgPost, imgPost2;
     Uri imgUri1;
     Uri imgUri2;
+    CheckBox cbUse, cb_Nouse;
     int check = 0;
-    private int counter;
+    private String status = "";
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -61,7 +65,7 @@ public class Post extends Fragment {
     private SharedPreferences.Editor editor;
     String userName = "";
     Images images;
-    ArrayList<String>listImages = new ArrayList<>();
+    ArrayList<String> listImages = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,23 +74,37 @@ public class Post extends Fragment {
         View view = inflater.inflate(R.layout.fragment_post, container, false);
 
         // ánh xạ
-        btn_choose = view.findViewById(R.id.btn_choose_file);
-        btn_choose2 = view.findViewById(R.id.btn_choose_file2);
         btn_upload = view.findViewById(R.id.btn_upload_file);
-        edt_fileName = view.findViewById(R.id.edt_file_name);
+        edt_Name = view.findViewById(R.id.edt_nameXe);
+        edt_Dongxe = view.findViewById(R.id.edt_dongxe);
+        edt_color = view.findViewById(R.id.edt_color);
+        edt_MadeinDate = view.findViewById(R.id.edt_madeinDate);
+        edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
+        edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
+        edt_pirce = view.findViewById(R.id.edt_pirce);
+        cbUse = view.findViewById(R.id.check_use_P);
+        cb_Nouse = view.findViewById(R.id.check_nouse_P);
         imgPost = view.findViewById(R.id.imagePost);
         imgPost2 = view.findViewById(R.id.imagePost2);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        if (cbUse.isChecked()) {
+            status = cbUse.getText().toString();
+            cb_Nouse.setChecked(false);
+        } else {
+            cbUse.setChecked(false);
+            status = cb_Nouse.getText().toString();
+        }
+
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("Posts");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
 
         images = new Images();
-        counter = 0;
         // click
         saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
         userName = saveInfoAccount.getString("userName", null);
         if (!TextUtils.isEmpty(userName)) {
-            btn_choose.setOnClickListener(new View.OnClickListener() {
+            imgPost.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     check = 1;
@@ -94,7 +112,7 @@ public class Post extends Fragment {
                 }
             });
 
-            btn_choose2.setOnClickListener(new View.OnClickListener() {
+            imgPost2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     check = 2;
@@ -114,11 +132,11 @@ public class Post extends Fragment {
         return view;
     }
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            Log.d(TAG, "handleMessage: "+msg.what);
-            switch (msg.what){
+            Log.d(TAG, "handleMessage: " + msg.what);
+            switch (msg.what) {
                 case 1:
                     postFile();
                     break;
@@ -141,17 +159,16 @@ public class Post extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK
                 && data != null && data.getData() != null) {
 
-            if(check == 1){
+            if (check == 1) {
                 imgUri1 = data.getData();
-                Picasso.with(getActivity()).load(imgUri1).into(imgPost);
-            }else {
+                Picasso.with(getActivity()).load(imgUri1).resize(300, 300).centerCrop().into(imgPost);
+            } else {
                 imgUri2 = data.getData();
-                Picasso.with(getActivity()).load(imgUri2).into(imgPost2);
+                Picasso.with(getActivity()).load(imgUri2).resize(300, 300).centerCrop().into(imgPost2);
             }
 
         }
     }
-
 
 
     private String getFileExtension(Uri uri) {
@@ -172,7 +189,7 @@ public class Post extends Fragment {
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, "onSuccess: 2");
                             listImages.add(uri.toString());
-                            if (listImages.size() == 2){
+                            if (listImages.size() == 2) {
                                 mHandler.sendEmptyMessage(1);
                             }
                         }
@@ -199,7 +216,7 @@ public class Post extends Fragment {
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, "onSuccess: 4");
                             listImages.add(uri.toString());
-                            if (listImages.size() == 2){
+                            if (listImages.size() == 2) {
                                 mHandler.sendEmptyMessage(1);
                             }
                         }
@@ -211,19 +228,26 @@ public class Post extends Fragment {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
-            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void postFile(){
+    private void postFile() {
         images.setImage1(listImages.get(0));
         images.setImage2(listImages.get(1));
-        Log.d(TAG, "Images 5" + images.getImage1() + images.getImage2());
-        Posts post = new Posts(userName,images);
+        String tenXe = edt_Name.getText().toString();
+        String dongXe = edt_Dongxe.getText().toString();
+        String namSX = edt_MadeinDate.getText().toString();
+        String color = edt_color.getText().toString();
+        String khuvuc = edt_Khuvuc.getText().toString();
+        Float gia = Float.valueOf(edt_pirce.getText().toString());
+
+
+
+        Posts post = new Posts(tenXe, namSX, dongXe, color, khuvuc, "", images, gia, status, userName);
         String uploadId = mDatabaseRef.push().getKey();
         assert uploadId != null;
         mDatabaseRef.child(uploadId).setValue(post);
         Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getActivity(), MainActivity.class));
     }
 }

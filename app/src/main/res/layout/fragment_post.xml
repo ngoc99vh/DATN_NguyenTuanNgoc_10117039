@@ -1,52 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_choose_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/gray"
-        android:text="Choose File" />
-    <Button
-        android:id="@+id/btn_choose_file2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/gray"
-        android:layout_toEndOf="@+id/btn_choose_file"
-        android:text="Choose File2" />
-
-    <EditText
-        android:id="@+id/edt_file_name"
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_toEndOf="@+id/btn_choose_file2"
-        android:hint="Enter file name">
-    </EditText>
-    <ImageView
-        android:id="@+id/imagePost"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_below="@+id/edt_file_name"
-        android:layout_above="@+id/btn_upload_file"
-        android:layout_width="150dp"
-        android:layout_height="150dp">
-    </ImageView>
-    <ImageView
-        android:id="@+id/imagePost2"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_below="@+id/edt_file_name"
-        android:layout_above="@+id/btn_upload_file"
-        android:layout_toRightOf="@+id/imagePost"
-        android:layout_width="150dp"
-        android:layout_height="150dp">
-    </ImageView>
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/check_use_P"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã sử dụng" />
+        <CheckBox
+            android:id="@+id/check_nouse_P"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sản phẩm mới" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageButton
+            android:id="@+id/imagePost"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_collections_24">
+        </ImageButton>
+        <ImageButton
+            android:id="@+id/imagePost2"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_collections_24">
+        </ImageButton>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhập tên xe: "/>
+        <EditText
+            android:id="@+id/edt_nameXe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dòng xe: "/>
+        <EditText
+            android:id="@+id/edt_dongxe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Khu Vực: "/>
+        <EditText
+            android:id="@+id/edt_khuvuc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Màu sắc: "/>
+        <EditText
+            android:id="@+id/edt_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Năm sản xuất: "/>
+        <EditText
+            android:id="@+id/edt_madeinDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá: "/>
+        <EditText
+            android:id="@+id/edt_pirce"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp">
+        </EditText>
+    </LinearLayout>
+
     <Button
+        android:layout_gravity="center"
         android:id="@+id/btn_upload_file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,4 +146,4 @@
         android:layout_centerHorizontal="true"
         android:text="Upload" />
 
-</RelativeLayout>
+</LinearLayout>

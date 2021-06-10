@@ -64,25 +64,21 @@ public class Home extends Fragment {
         rcl = view.findViewById(R.id.rcl_home);
         img_location = view.findViewById(R.id.img_location);
         tv_location = view.findViewById(R.id.tv_location);
-
-
         // Sự kiện
 
         /// Sự kiện load images
         rcl.setHasFixedSize(true);
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
         mUploads = new ArrayList<>();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
-        mDatabaseRef.orderByChild("mName").addValueEventListener(new ValueEventListener() {
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
+        mDatabaseRef.orderByChild("pName").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Posts upload = postSnapshot.getValue(Posts.class);
-//                    Log.d(TAG, "upload: "+upload.getImages().getNumberImages());
                     mUploads.add(upload);
                 }
                 Log.d(TAG, "mUploads: "+mUploads.size());
-//                Log.d(TAG, "mUploads: "+mUploads.get());
                 mAdapter = new ProductAdapter(mUploads, getContext());
                 rcl.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();

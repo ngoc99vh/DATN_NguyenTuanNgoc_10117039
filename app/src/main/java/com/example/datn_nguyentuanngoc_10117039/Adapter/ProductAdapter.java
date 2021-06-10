@@ -1,6 +1,7 @@
 package com.example.datn_nguyentuanngoc_10117039.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.datn_nguyentuanngoc_10117039.Activity.DetailPostActivity;
 import com.example.datn_nguyentuanngoc_10117039.Model.Images;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
@@ -40,15 +42,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Posts uploadCurrent = listsanphams.get(position);
-        holder.textViewName.setText(uploadCurrent.getmName());
-//        String test = uploadCurrent.getImages().getImageByID(1);
-//        String test2 = uploadCurrent.getImages().getImageByID(1);
-//        Log.d(TAG, "img: "+test);
-//        Picasso.with(context)
-//                .load(test)
-//                .fit()
-//                .centerCrop()
-//                .into(holder.imageView);
+        holder.textViewName.setText(uploadCurrent.getpName());
+        String test = uploadCurrent.getImages().getImage1();
+        Log.d(TAG, "img: "+test);
+        Picasso.with(context)
+                .load(test)
+                .fit()
+                .centerCrop()
+                .into(holder.imageView);
     }
 
     @Override
@@ -69,6 +70,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             super(view);
             textViewName = itemView.findViewById(R.id.tv_name_itP);
             imageView = itemView.findViewById(R.id.image_itP);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, DetailPostActivity.class));
+                }
+            });
 
         }
     }
