@@ -39,6 +39,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class Post extends Fragment {
     private static final String TAG = "locnt";
 
@@ -59,6 +61,7 @@ public class Post extends Fragment {
     private SharedPreferences.Editor editor;
     String userName = "";
     Images images;
+    ArrayList<String>listImages = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -168,8 +171,8 @@ public class Post extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, "onSuccess: 2");
-                            images.addImage(uri.toString());
-                            if (images.getNumberImages() == 2){
+                            listImages.add(uri.toString());
+                            if (listImages.size() == 2){
                                 mHandler.sendEmptyMessage(1);
                             }
                         }
@@ -195,8 +198,8 @@ public class Post extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, "onSuccess: 4");
-                            images.addImage(uri.toString());
-                            if (images.getNumberImages() == 2){
+                            listImages.add(uri.toString());
+                            if (listImages.size() == 2){
                                 mHandler.sendEmptyMessage(1);
                             }
                         }
@@ -214,13 +217,13 @@ public class Post extends Fragment {
     }
 
     private void postFile(){
+        images.setImage1(listImages.get(0));
+        images.setImage2(listImages.get(1));
+        Log.d(TAG, "Images 5" + images.getImage1() + images.getImage2());
         Posts post = new Posts(userName,images);
-        Log.d(TAG, "images: "+images.getNumberImages());
         String uploadId = mDatabaseRef.push().getKey();
         assert uploadId != null;
         mDatabaseRef.child(uploadId).setValue(post);
-
-
         Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
     }
 }
