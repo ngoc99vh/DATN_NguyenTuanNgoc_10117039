@@ -49,13 +49,13 @@ public class Post extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btn_upload;
-    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce;
+    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT;
     ImageView imgPost, imgPost2;
     Uri imgUri1;
     Uri imgUri2;
     CheckBox cbUse, cb_Nouse;
     int check = 0;
-    private String status = "";
+    private String condition = "";
 
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
@@ -82,17 +82,20 @@ public class Post extends Fragment {
         edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
         edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
         edt_pirce = view.findViewById(R.id.edt_pirce);
+        edt_km = view.findViewById(R.id.edt_km);
+        edt_TT = view.findViewById(R.id.edt_themTT);
+        edt_pirce = view.findViewById(R.id.edt_pirce);
         cbUse = view.findViewById(R.id.check_use_P);
         cb_Nouse = view.findViewById(R.id.check_nouse_P);
         imgPost = view.findViewById(R.id.imagePost);
         imgPost2 = view.findViewById(R.id.imagePost2);
 
         if (cbUse.isChecked()) {
-            status = cbUse.getText().toString();
+            condition = cbUse.getText().toString();
             cb_Nouse.setChecked(false);
         } else {
             cbUse.setChecked(false);
-            status = cb_Nouse.getText().toString();
+            condition = cb_Nouse.getText().toString();
         }
 
 
@@ -161,10 +164,10 @@ public class Post extends Fragment {
 
             if (check == 1) {
                 imgUri1 = data.getData();
-                Picasso.with(getActivity()).load(imgUri1).resize(300, 300).centerCrop().into(imgPost);
+                Picasso.get().load(imgUri1).resize(300, 300).centerCrop().into(imgPost);
             } else {
                 imgUri2 = data.getData();
-                Picasso.with(getActivity()).load(imgUri2).resize(300, 300).centerCrop().into(imgPost2);
+                Picasso.get().load(imgUri2).resize(300, 300).centerCrop().into(imgPost2);
             }
 
         }
@@ -239,11 +242,13 @@ public class Post extends Fragment {
         String namSX = edt_MadeinDate.getText().toString();
         String color = edt_color.getText().toString();
         String khuvuc = edt_Khuvuc.getText().toString();
+        String thongtin = edt_TT.getText().toString();
+        String status = "Chưa xác nhận";
         Float gia = Float.valueOf(edt_pirce.getText().toString());
+        Float km = Float.valueOf(edt_km.getText().toString());
 
 
-
-        Posts post = new Posts(tenXe, namSX, dongXe, color, khuvuc, "", images, gia, status, userName);
+        Posts post = new Posts(tenXe, namSX, dongXe, color, khuvuc, thongtin, images, gia, status, userName, condition, km);
         String uploadId = mDatabaseRef.push().getKey();
         assert uploadId != null;
         mDatabaseRef.child(uploadId).setValue(post);

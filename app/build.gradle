@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
     compile 'com.squareup.picasso:picasso:2.3.3'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -41,4 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'org.simple:androideventbus:1.0.5.1'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.0.6'
 }

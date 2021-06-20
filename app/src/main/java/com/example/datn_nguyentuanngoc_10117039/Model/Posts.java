@@ -1,11 +1,13 @@
 package com.example.datn_nguyentuanngoc_10117039.Model;
 
-public class Posts {
-    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus;
+import java.io.Serializable;
+
+public class Posts implements Serializable {
+    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition;
     private Images images;
     private Float pPice, pKmuse;
 
-    public Posts(String pName, String pDate, String pDongco, String pColor, String pKhuvuc, String pThongtin, Images images, Float pPice, String pStatus, String pChuxe) {
+    public Posts(String pName, String pDate, String pDongco, String pColor, String pKhuvuc, String pThongtin, Images images, Float pPice, String pStatus, String pChuxe, String pCondition, Float pKmuse) {
         this.pName = pName;
         this.pDate = pDate;
         this.pDongxe = pDongco;
@@ -16,6 +18,8 @@ public class Posts {
         this.pPice = pPice;
         this.pStatus = pStatus;
         this.pChuxe = pChuxe;
+        this.pCondition = pCondition;
+        this.pKmuse = pKmuse;
     }
     public Posts(){}
 
@@ -113,4 +117,11 @@ public class Posts {
         this.pStatus = pStatus;
     }
 
+    public String getpCondition() {
+        return pCondition;
+    }
+
+    public void setpCondition(String pCondition) {
+        this.pCondition = pCondition;
+    }
 }
