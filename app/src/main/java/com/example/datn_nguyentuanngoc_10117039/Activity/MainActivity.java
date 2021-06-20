@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Fragment.Account;
 import com.example.datn_nguyentuanngoc_10117039.Fragment.Home;
+import com.example.datn_nguyentuanngoc_10117039.Fragment.HomeAdmin;
 import com.example.datn_nguyentuanngoc_10117039.Fragment.Post;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,16 +24,36 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationVieư;
     private FrameLayout main;
-    private Fragment home, post, account;
-
+    private Fragment home, post, account, homeAddmin;
+    String roleID = "";
+    private static SharedPreferences saveInfoAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         init();
         setFragment(home);
+        saveInfoAccount = getApplicationContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
+
+        roleID = saveInfoAccount.getString("role", null);
+        if (!TextUtils.isEmpty(roleID) && roleID.equals("0")) {
+            setFragment(homeAddmin);
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchuAdmin_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchu_fragment).setVisible(false);
+            bottomNavigationVieư.getMenu().findItem(R.id.dangtin_fragment).setVisible(false);
+            bottomNavigationVieư.getMenu().findItem(R.id.account_fragment).setVisible(true);
+
+        } else {
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchu_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.dangtin_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.account_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchuAdmin_fragment).setVisible(false);
+
+        }
+
         bottomNavigationVieư.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -37,16 +61,20 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.trangchu_fragment:
                         setFragment(home);
                         return true;
-                    case R.id.danhmuc_fragment:
+                    case R.id.dangtin_fragment:
                         setFragment(post);
                         return true;
                     case R.id.account_fragment:
                         setFragment(account);
                         return true;
+                    case R.id.trangchuAdmin_fragment:
+                        setFragment(homeAddmin);
+                        return true;
                 }
                 return false;
             }
         });
+        check();
     }
 
     boolean doubleBackToExitPressedOnce = false;
@@ -77,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         home = new Home();
         post = new Post();
         account = new Account();
+        homeAddmin = new HomeAdmin();
 
     }
 
@@ -84,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_container, fragment);
         transaction.commit();
+    }
+
+    private void check() {
+
     }
 }
 

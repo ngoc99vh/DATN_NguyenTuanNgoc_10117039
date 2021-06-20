@@ -60,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         String fulName = fulName_register.getText().toString();
         String address = address_register.getText().toString();
         String birthDay = birthDay_register.getText().toString();
+        String role = "1";
         if (TextUtils.isEmpty(userName)) {
             Toast.makeText(this, "Vui lòng nhập tên đăng nhập", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password)) {
@@ -73,11 +74,11 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(birthDay)) {
             Toast.makeText(this, "Vui lòng nhập tên đăng nhập", Toast.LENGTH_SHORT).show();
         }else {
-            postUser(userName,password,phone,fulName,birthDay,address);
+            postUser(userName,password,phone,fulName,birthDay,address,role);
         }
     }
 
-    private void postUser(String userName, String password, String phone, String fulName, String birthDay, String address) {
+    private void postUser(String userName, String password, String phone, String fulName, String birthDay, String address,String role) {
         DatabaseReference data;
         data = FirebaseDatabase.getInstance().getReference();
         data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userdataMap.put("userName",userName);
                     userdataMap.put("password",password);
                     userdataMap.put("phone",phone);
+                    userdataMap.put("role",role);
                     userdataMap.put("fulName",fulName);
                     userdataMap.put("birthDay",birthDay);
                     userdataMap.put("address",address);

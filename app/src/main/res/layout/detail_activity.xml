@@ -21,247 +21,317 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/ll_00001"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    app:corner_radius="5"
-                    app:delay="0"
-                    app:period="1500" />
-
+                android:layout_height="wrap_content">
                 <LinearLayout
+                    android:layout_marginBottom="50dp"
+                    android:id="@+id/ll_00001"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        app:corner_radius="5"
+                        app:delay="0"
+                        app:period="1500" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_dongxe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Honda"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:id="@+id/tv_nameProduct"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:text="Ware"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/tv_dongxe"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_pirceProduct"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Honda"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:id="@+id/tv_nameProduct"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:text="Ware"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:text="20.000.000 đ"
+                            android:textColor="@color/black"
                             android:textSize="20dp"
                             android:textStyle="bold" />
-                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_pirceProduct"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="5dp"
-                        android:text="20.000.000 đ"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="2dip"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="#999999" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="2dip"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="#999999" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/vien1"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/po123" />
-
-                            <TextView
-                                android:id="@+id/tv_dongco_detail"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Năm sử dụng"
-                                android:textColor="@color/black"
-                                android:textSize="12dp" />
-                        </LinearLayout>
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/vien1"
+                                android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/vien11"
-                            android:orientation="vertical">
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/po123" />
 
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/calendaricon1111" />
+                                <TextView
+                                    android:id="@+id/tv_dongco_detail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Năm sử dụng"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp" />
+                            </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/tv_namSx_detail"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Năm sử dụng"
-                                android:textColor="@color/black"
-                                android:textSize="12dp" />
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/vien11"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/calendaricon1111" />
+
+                                <TextView
+                                    android:id="@+id/tv_namSx_detail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Năm sử dụng"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp" />
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
 
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="2dip"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="#999999" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:orientation="vertical"
-                        android:weightSum="3">
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="2dip"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="#999999" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical"
+                            android:weightSum="3">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Tình trạng" />
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_tinhtrang"
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text="Tình trạng" />
+
+                                <TextView
+                                    android:id="@+id/tv_tinhtrang"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_weight="1"
+                                    android:text="Đã sử dụng"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_weight="1"
-                                android:text="Đã sử dụng"
-                                android:textColor="@color/black" />
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text="Màu sắc" />
+
+                                <TextView
+                                    android:id="@+id/tv_color_detail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_weight="1"
+                                    android:text="Trắng"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text="Khu vực" />
+
+                                <TextView
+                                    android:id="@+id/tv_khuvuc_detail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_weight="1"
+                                    android:text="Hà nội"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:text="Thông tin mô tả" />
+
+                                <TextView
+                                    android:id="@+id/tv_TTthem_detail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="3dp"
+                                    android:layout_weight="1"
+                                    android:text="Ngọc99vh"
+                                    android:textColor="@color/black" />
+                            </LinearLayout>
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
+                            android:orientation="vertical">
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="2dip"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="#999999" />
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Màu sắc" />
+                                android:orientation="vertical">
+                                <TextView
+                                    android:textSize="16dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Thông tin liên hệ:">
+                                </TextView>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/tv_color_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_weight="1"
-                                android:text="Trắng"
-                                android:textColor="@color/black" />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="2"
+                                        android:text="Chủ xe" />
+
+                                    <TextView
+                                        android:id="@+id/tv_chuxe_detail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="3dp"
+                                        android:layout_weight="1"
+                                        android:text="Ngọc99vh"
+                                        android:textColor="@color/black" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="2"
+                                        android:text="Số điện thoại" />
+                                    <TextView
+                                        android:id="@+id/tv_sdt_detail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="3dp"
+                                        android:layout_weight="1"
+                                        android:text="0946906998"
+                                        android:textColor="@color/black" />
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="2"
+                                        android:text="Địa chỉ" />
+
+                                    <TextView
+                                        android:id="@+id/tv_diachi_detail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="3dp"
+                                        android:layout_weight="1"
+                                        android:text=""
+                                        android:textColor="@color/black" />
+                                </LinearLayout>
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Khu vực" />
-
-                            <TextView
-                                android:id="@+id/tv_khuvuc_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_weight="1"
-                                android:text="Hà nội"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Chủ xe" />
-
-                            <TextView
-                                android:id="@+id/tv_chuxe_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_weight="1"
-                                android:text="Ngọc99vh"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:text="Thông tin mô tả" />
-
-                            <TextView
-                                android:id="@+id/tv_TTthem_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="3dp"
-                                android:layout_weight="1"
-                                android:text="Ngọc99vh"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
-
-
                     </LinearLayout>
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
+
         </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
         <LinearLayout
             android:weightSum="2"
             android:layout_alignParentBottom="true"
@@ -287,7 +357,6 @@
                 android:backgroundTint="@color/color_all"
                 android:text="Nhắn tin" />
         </LinearLayout>
-
     </RelativeLayout>
 
 

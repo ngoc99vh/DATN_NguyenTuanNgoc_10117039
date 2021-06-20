@@ -43,8 +43,7 @@ public class AutomakersAdapter extends RecyclerView.Adapter<AutomakersAdapter.Vi
         holder.textViewName.setText(automakers.getName());
         String img = automakers.getImage();
         Picasso.get().load(img)
-                .centerCrop()
-                .fit()
+                .centerCrop().fit()
                 .into(holder.imageView);
     }
 

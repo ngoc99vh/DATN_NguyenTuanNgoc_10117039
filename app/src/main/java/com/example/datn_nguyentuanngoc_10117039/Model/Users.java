@@ -2,9 +2,9 @@ package com.example.datn_nguyentuanngoc_10117039.Model;
 
 public class Users {
     private String userName, phone, password, fullName, address, birthday;
-    private Long role;
+    private String role;
 
-    public Users(String userName, String phone, String password, String fullName, String address, Long role, String birthday) {
+    public Users(String userName, String phone, String password, String fullName, String address, String role, String birthday) {
         this.userName = userName;
         this.phone = phone;
         this.password = password;
@@ -65,11 +65,11 @@ public class Users {
         this.address = address;
     }
 
-    public Long getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Long role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

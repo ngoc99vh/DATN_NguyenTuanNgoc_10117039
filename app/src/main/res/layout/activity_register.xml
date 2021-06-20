@@ -4,50 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_all"
     android:orientation="vertical"
     tools:context=".Activity.RegisterActivity">
 
-    <EditText
-        android:id="@+id/userName_register"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="userName" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="monospace"
+            android:text="Đăng ký"
+            android:textColor="@color/white"
+            android:textSize="36dp" />
 
-    <EditText
-        android:id="@+id/password_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="password" />
+        <EditText
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/userName_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tên tài khoản" />
 
-    <EditText
-        android:id="@+id/fulName_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="fulName" />
+        <EditText
+            android:inputType="textPassword"
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/password_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mật khẩu" />
 
-    <EditText
-        android:id="@+id/phone_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone" />
+        <EditText
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/fulName_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Họ và tên" />
 
-    <EditText
-        android:id="@+id/birthDay_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="BirthDay" />
+        <EditText
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/phone_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại" />
 
-    <EditText
-        android:id="@+id/address_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address" />
+        <EditText
+            android:inputType="date"
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/birthDay_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày sinh (dd/mm/yyyy)" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đăng ký" />
+        <EditText
+            android:layout_marginBottom="20dp"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:id="@+id/address_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Địa chỉ" />
+
+        <Button
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:id="@+id/btn_register"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng ký" />
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

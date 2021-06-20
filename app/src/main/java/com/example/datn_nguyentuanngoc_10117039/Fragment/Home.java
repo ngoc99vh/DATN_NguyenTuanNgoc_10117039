@@ -229,4 +229,5 @@ public class Home extends Fragment {
         viewFlipper.setInAnimation(animation);
         viewFlipper.setOutAnimation(animation_out);
     }
+
 }

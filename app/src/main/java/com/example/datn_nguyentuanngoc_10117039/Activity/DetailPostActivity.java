@@ -34,7 +34,7 @@ import java.util.List;
 
 public class DetailPostActivity extends AppCompatActivity {
     ImageSlider imageSlider;
-    TextView tv_name, tv_dongco, tv_namSX, tv_dongxe, tv_tinhtrang, tv_khuvuc_detail, tv_TTthem_detail, tv_chuxe_detail;
+    TextView tv_name, tv_dongco, tv_namSX, tv_dongxe, tv_tinhtrang, tv_khuvuc_detail, tv_TTthem_detail, tv_chuxe_detail, tv_sdt_detail, tv_diachi_detail;
     Toolbar toolbar;
     Button btn_call, btn_send;
     private Posts posts;
@@ -57,10 +57,11 @@ public class DetailPostActivity extends AppCompatActivity {
     }
 
     public void Init() {
-
         btn_send = findViewById(R.id.btn_send);
         btn_call = findViewById(R.id.btn_call);
         tv_dongxe = findViewById(R.id.tv_dongxe);
+        tv_sdt_detail = findViewById(R.id.tv_sdt_detail);
+        tv_diachi_detail = findViewById(R.id.tv_diachi_detail);
         tv_chuxe_detail = findViewById(R.id.tv_chuxe_detail);
         tv_TTthem_detail = findViewById(R.id.tv_TTthem_detail);
         tv_khuvuc_detail = findViewById(R.id.tv_khuvuc_detail);
@@ -93,6 +94,8 @@ public class DetailPostActivity extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     users = postSnapshot.getValue(Users.class);
                     tv_chuxe_detail.setText(users.getFullName());
+                    tv_sdt_detail.setText(users.getPhone());
+                    tv_diachi_detail.setText(users.getAddress());
                 }
             }
 

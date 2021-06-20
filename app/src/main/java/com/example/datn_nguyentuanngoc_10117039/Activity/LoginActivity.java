@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Model.Users;
@@ -29,7 +30,8 @@ import java.util.Date;
 public class LoginActivity extends AppCompatActivity {
 
     public SharedPreferences saveInfoAccount;
-    Button btn_login, bt_redirect_logout, btn_login_admin;
+    Button btn_login;
+    TextView bt_redirect_logout;
     EditText userName_login, password_login;
     String parentDbName = "User";
     int role_id = 1;
@@ -49,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         password_login = findViewById(R.id.password_login);
         btn_login = findViewById(R.id.btn_login);
         bt_redirect_logout = findViewById(R.id.bt_redirect_register);
-        btn_login_admin = findViewById(R.id.btn_login_admin);
 
         bt_redirect_logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,17 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 Login();
             }
         });
-
-        btn_login_admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Login_Admin();
-            }
-        });
-    }
-
-    private void Login_Admin() {
-
     }
 
     private void Login() {
@@ -102,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
                                 String fullName = dataUsers.getFullName();
                                 String address= dataUsers.getAddress();
                                 String birthday = dataUsers.getBirthday();
+                                String role = dataUsers.getRole();
+
                                 // lưu dữ liệu vào bộ nhớ SharedPreferences
                                 SharedPreferences.Editor editor = saveInfoAccount.edit();
                                 editor.putString("userName", userName);
@@ -110,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("fullName", fullName);
                                 editor.putString("address", address);
                                 editor.putString("birthday", birthday);
+                                editor.putString("role", role);
                                 editor.commit();
                                 // kiểm tra đăng nhập
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thành công !!!!", Toast.LENGTH_SHORT).show();
