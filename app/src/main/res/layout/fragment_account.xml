@@ -61,6 +61,39 @@
             android:textSize="18dp" />
 
     </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dip"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#999999" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/store_new"></ImageView>
+
+            <TextView
+                android:id="@+id/acc_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="3dp"
+                android:text="Xe đang bán"
+                android:textSize="18dp">
+
+            </TextView>
+        </LinearLayout>
+    </RelativeLayout>
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
