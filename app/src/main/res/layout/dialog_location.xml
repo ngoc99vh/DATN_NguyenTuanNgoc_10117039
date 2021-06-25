@@ -9,12 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
-        <Button
+        <ImageView
+            android:id="@+id/img_dialog"
             android:layout_gravity="center"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@color/white"
-            android:src="@drawable/ic_baseline_clear_00"/>
+            android:icon="@drawable/ic_baseline_clear_24"
+           />
         <TextView
             android:textColor="@color/black"
             android:layout_marginLeft="100dp"

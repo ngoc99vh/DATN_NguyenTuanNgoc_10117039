@@ -35,24 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         init();
-        setFragment(home);
-        saveInfoAccount = getApplicationContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
 
-        roleID = saveInfoAccount.getString("role", null);
-        if (!TextUtils.isEmpty(roleID) && roleID.equals("0")) {
-            setFragment(homeAddmin);
-            bottomNavigationVieư.getMenu().findItem(R.id.trangchuAdmin_fragment).setVisible(true);
-            bottomNavigationVieư.getMenu().findItem(R.id.trangchu_fragment).setVisible(false);
-            bottomNavigationVieư.getMenu().findItem(R.id.dangtin_fragment).setVisible(false);
-            bottomNavigationVieư.getMenu().findItem(R.id.account_fragment).setVisible(true);
 
-        } else {
-            bottomNavigationVieư.getMenu().findItem(R.id.trangchu_fragment).setVisible(true);
-            bottomNavigationVieư.getMenu().findItem(R.id.dangtin_fragment).setVisible(true);
-            bottomNavigationVieư.getMenu().findItem(R.id.account_fragment).setVisible(true);
-            bottomNavigationVieư.getMenu().findItem(R.id.trangchuAdmin_fragment).setVisible(false);
-
-        }
 
         bottomNavigationVieư.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -116,7 +100,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void check() {
-
+        saveInfoAccount = getApplicationContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
+        roleID = saveInfoAccount.getString("role", null);
+        if (!TextUtils.isEmpty(roleID) && roleID.equals("0")) {
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchuAdmin_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchu_fragment).setVisible(false);
+            bottomNavigationVieư.getMenu().findItem(R.id.dangtin_fragment).setVisible(false);
+            bottomNavigationVieư.getMenu().findItem(R.id.account_fragment).setVisible(true);
+            setFragment(homeAddmin);
+        } else {
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchu_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.dangtin_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.account_fragment).setVisible(true);
+            bottomNavigationVieư.getMenu().findItem(R.id.trangchuAdmin_fragment).setVisible(false);
+            setFragment(home);
+        }
     }
 }
 

@@ -34,7 +34,7 @@
                     <com.denzcoskun.imageslider.ImageSlider
                         android:id="@+id/slider"
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="500dp"
                         app:corner_radius="5"
                         app:delay="0"
                         app:period="1500" />
@@ -47,7 +47,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
                             android:orientation="horizontal">
 
@@ -72,7 +72,7 @@
                             android:id="@+id/tv_pirceProduct"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:text="20.000.000 đ"
                             android:textColor="@color/black"
@@ -250,6 +250,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:background="#999999" />
                             <LinearLayout
+                                android:layout_marginLeft="10dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">

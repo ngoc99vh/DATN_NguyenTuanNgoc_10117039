@@ -45,11 +45,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class Post extends Fragment {
-    private static final String TAG = "locnt";
+    private static final String TAG = "ngocnt";
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btn_upload;
-    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT;
+    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT,edt_dongco;
     ImageView imgPost, imgPost2;
     Uri imgUri1;
     Uri imgUri2;
@@ -77,6 +77,7 @@ public class Post extends Fragment {
         btn_upload = view.findViewById(R.id.btn_upload_file);
         edt_Name = view.findViewById(R.id.edt_nameXe);
         edt_Dongxe = view.findViewById(R.id.edt_dongxe);
+        edt_dongco = view.findViewById(R.id.edt_dongco);
         edt_color = view.findViewById(R.id.edt_color);
         edt_MadeinDate = view.findViewById(R.id.edt_madeinDate);
         edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
@@ -238,6 +239,7 @@ public class Post extends Fragment {
         images.setImage1(listImages.get(0));
         images.setImage2(listImages.get(1));
         String tenXe = edt_Name.getText().toString();
+        String dongco = edt_dongco.getText().toString();
         String dongXe = edt_Dongxe.getText().toString();
         String namSX = edt_MadeinDate.getText().toString();
         String color = edt_color.getText().toString();
@@ -248,7 +250,7 @@ public class Post extends Fragment {
         Float km = Float.valueOf(edt_km.getText().toString());
 
 
-        Posts post = new Posts(tenXe, namSX, dongXe, color, khuvuc, thongtin, images, gia, status, userName, condition, km);
+        Posts post = new Posts(tenXe,namSX,dongXe,color,khuvuc,thongtin,userName,status,condition,dongco,images,gia,km);
         String uploadId = mDatabaseRef.push().getKey();
         assert uploadId != null;
         mDatabaseRef.child(uploadId).setValue(post);

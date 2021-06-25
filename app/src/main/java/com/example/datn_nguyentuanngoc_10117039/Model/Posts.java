@@ -3,25 +3,27 @@ package com.example.datn_nguyentuanngoc_10117039.Model;
 import java.io.Serializable;
 
 public class Posts implements Serializable {
-    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition;
+    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition, pDongco;
     private Images images;
     private Float pPice, pKmuse;
 
-    public Posts(String pName, String pDate, String pDongco, String pColor, String pKhuvuc, String pThongtin, Images images, Float pPice, String pStatus, String pChuxe, String pCondition, Float pKmuse) {
+    public Posts(String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse) {
         this.pName = pName;
         this.pDate = pDate;
-        this.pDongxe = pDongco;
+        this.pDongxe = pDongxe;
         this.pColor = pColor;
         this.pKhuvuc = pKhuvuc;
         this.pThongtin = pThongtin;
+        this.pChuxe = pChuxe;
+        this.pStatus = pStatus;
+        this.pCondition = pCondition;
+        this.pDongco = pDongco;
         this.images = images;
         this.pPice = pPice;
-        this.pStatus = pStatus;
-        this.pChuxe = pChuxe;
-        this.pCondition = pCondition;
         this.pKmuse = pKmuse;
     }
     public Posts(){}
+
 
     public String getpName() {
         return pName;
@@ -39,12 +41,12 @@ public class Posts implements Serializable {
         this.pDate = pDate;
     }
 
-    public String getpDongco() {
+    public String getpDongxe() {
         return pDongxe;
     }
 
-    public void setpDongco(String pDongco) {
-        this.pDongxe = pDongco;
+    public void setpDongxe(String pDongxe) {
+        this.pDongxe = pDongxe;
     }
 
     public String getpColor() {
@@ -71,42 +73,12 @@ public class Posts implements Serializable {
         this.pThongtin = pThongtin;
     }
 
-    public Images getImages() {
-        return images;
-    }
-
-    public void setImages(Images images) {
-        this.images = images;
-    }
-
-    public Float getpPice() {
-        return pPice;
-    }
-
-    public void setpPice(Float pPice) {
-        this.pPice = pPice;
-    }
-
-    public String getpDongxe() { return pDongxe; }
-
-    public void setpDongxe(String pDongxe) {
-        this.pDongxe = pDongxe;
-    }
-
     public String getpChuxe() {
         return pChuxe;
     }
 
     public void setpChuxe(String pChuxe) {
         this.pChuxe = pChuxe;
-    }
-
-    public Float getpKmuse() {
-        return pKmuse;
-    }
-
-    public void setpKmuse(Float pKmuse) {
-        this.pKmuse = pKmuse;
     }
 
     public String getpStatus() {
@@ -123,5 +95,37 @@ public class Posts implements Serializable {
 
     public void setpCondition(String pCondition) {
         this.pCondition = pCondition;
+    }
+
+    public String getpDongco() {
+        return pDongco;
+    }
+
+    public void setpDongco(String pDongco) {
+        this.pDongco = pDongco;
+    }
+
+    public Images getImages() {
+        return images;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
+    }
+
+    public Float getpPice() {
+        return pPice;
+    }
+
+    public void setpPice(Float pPice) {
+        this.pPice = pPice;
+    }
+
+    public Float getpKmuse() {
+        return pKmuse;
+    }
+
+    public void setpKmuse(Float pKmuse) {
+        this.pKmuse = pKmuse;
     }
 }

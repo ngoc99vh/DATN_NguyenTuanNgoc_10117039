@@ -50,11 +50,11 @@ public class Location_Adapter extends RecyclerView.Adapter<Location_Adapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Location_model location_model = listsanphams.get(position);
-        holder.textViewName1.setVisibility(View.GONE);
+//        holder.textViewName1.setVisibility(View.GONE);
         holder.textViewName.setText(location_model.getName());
-        if (pos == position){
-            holder.textViewName1.setVisibility(View.VISIBLE);
-        }
+//        if (pos == position){
+//            holder.textViewName1.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override
@@ -74,15 +74,11 @@ public class Location_Adapter extends RecyclerView.Adapter<Location_Adapter.View
 
         public ViewHolder(View view) {
             super(view);
-            saveInfoAccount = context.getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
             textViewName = itemView.findViewById(R.id.tv_name_itP);
-            textViewName1 = itemView.findViewById(R.id.tv_name_itP1);
-
             textViewName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     test.onClick(v, getAdapterPosition());
-
                 }
             });
         }

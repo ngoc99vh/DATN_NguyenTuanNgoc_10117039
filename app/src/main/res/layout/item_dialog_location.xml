@@ -28,15 +28,6 @@
             android:text="Hà Nội"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
-        <TextView
-            android:layout_marginLeft="100dp"
-            android:id="@+id/tv_name_itP1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Hà Nội"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
     </LinearLayout>
 
 

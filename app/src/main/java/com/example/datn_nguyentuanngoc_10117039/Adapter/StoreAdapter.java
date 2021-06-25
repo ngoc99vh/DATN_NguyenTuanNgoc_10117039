@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.DetailPostActivity;
-import com.example.datn_nguyentuanngoc_10117039.Model.Images;
 import com.example.datn_nguyentuanngoc_10117039.Model.Location_model;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
-import com.example.datn_nguyentuanngoc_10117039.Model.Users;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,14 +30,13 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
+public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> {
     private static final String TAG = "locnt";
     public ArrayList<Posts> listsanphams;
     Context context;
 
-    public ProductAdapter(ArrayList<Posts> listsanphams, Context context) {
+    public StoreAdapter(ArrayList<Posts> listsanphams, Context context) {
         this.listsanphams = listsanphams;
         this.context = context;
     }
@@ -59,7 +58,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
         otherSymbols.setGroupingSeparator('.');
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.##",otherSymbols);
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.##", otherSymbols);
         holder.tv_gia.setText(decimalFormat.format(uploadCurrent.getpPice()) + " đ");
         String test = uploadCurrent.getImages().getImage1();
         Log.d(TAG, "img: " + test);
@@ -84,9 +83,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     holder.tv_khuvuc.setText(upload.getName());
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(context, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                final PopupMenu popupMenu = new PopupMenu(context, holder.itemView);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_update_delete, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.item_menu_sua:
+                                break;
+                            case R.id.item_menu_xoa:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+                return true;
             }
         });
     }
@@ -106,15 +127,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         public ImageView imageView;
         private ArrayList<Location_model> listLocations;
         private DatabaseReference mDatabaseRef;
+
         public ViewHolder(View view) {
             super(view);
             textViewName = itemView.findViewById(R.id.tv_name_itP);
             imageView = itemView.findViewById(R.id.image_itP);
             tv_gia = itemView.findViewById(R.id.tv_pirce_itP);
             tv_khuvuc = itemView.findViewById(R.id.tv_khuvuc_itP);
-
-        }
-        public void getUser(String id) {
 
         }
     }

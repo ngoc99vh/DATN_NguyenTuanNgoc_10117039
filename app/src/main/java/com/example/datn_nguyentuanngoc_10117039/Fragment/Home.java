@@ -2,6 +2,8 @@ package com.example.datn_nguyentuanngoc_10117039.Fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -38,17 +40,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Home extends Fragment {
     private static final String TAG = "ngocnt";
     ViewFlipper viewFlipper;
     RecyclerView rcl, rcl1;
-    ImageView img_location;
+    ImageView img_location, imageView;
     TextView tv_location;
     private DatabaseReference mDatabaseRef;
     private ProductAdapter mAdapter;
@@ -81,7 +86,7 @@ public class Home extends Fragment {
 
         // Sự kiện
         slide();
-        loadProduct();
+        loadProduct("-1");
         loadAutomaker();
 
 
@@ -102,6 +107,9 @@ public class Home extends Fragment {
         createDialog(getContext());
         mPosition = 0;
 
+        DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+        String date = df.format(Calendar.getInstance().getTime());
+        Log.d(TAG, "date: " + date);
         /// Sự kiện lấy địa chỉ
 
 
@@ -112,20 +120,10 @@ public class Home extends Fragment {
             }
         });
 
-        if (getArguments() != null) {
-            NameLocation = getArguments().getString("NameLocation", "");
-            if (!TextUtils.isEmpty(NameLocation))
-                Log.d("LOG1", NameLocation);
-        } else {
-            tv_location.setText("Việt Nam");
-        }
-
-
         return view;
     }
 
     public void createDialog(Context context) {
-
         mDialog = new Dialog(context, R.style.FullScreenDialog);
         mDialog.setContentView(R.layout.dialog_location);
         RecyclerView rcl_dialogLocation = mDialog.findViewById(R.id.rcl_location);
@@ -140,7 +138,7 @@ public class Home extends Fragment {
                     Location_model upload = postSnapshot.getValue(Location_model.class);
                     listLocations.add(upload);
                 }
-                listLocations.add(0, new Location_model("-1", "Việt Nam", null, ""));
+                listLocations.add(0, new Location_model("-1", "Việt Nam", null, "-1"));
                 location_adapter = new Location_Adapter(listLocations, getContext(), mPosition);
                 location_adapter.setTest(new Location_Adapter.Test() {
                     @Override
@@ -148,6 +146,8 @@ public class Home extends Fragment {
                         mPosition = possition;
                         Location_model location_model = listLocations.get(possition);
                         tv_location.setText(location_model.getName());
+                        loadProduct(location_model.getId());
+//                        Log.d(TAG, "mUploads: " + location_model.getName());
                         mDialog.dismiss();
                     }
                 });
@@ -160,13 +160,12 @@ public class Home extends Fragment {
                 Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
         mDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         mDialog.getWindow().setAttributes(layoutParams);
     }
 
-    public void loadProduct() {
+    public void loadProduct(String khuvuc) {
         mUploads = new ArrayList<>();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
         mDatabaseRef.orderByChild("pStatus").equalTo("Đã xác nhận").addValueEventListener(new ValueEventListener() {
@@ -174,9 +173,17 @@ public class Home extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Posts upload = postSnapshot.getValue(Posts.class);
-                    mUploads.add(upload);
+                    String kk = upload.getpKhuvuc();
+                    if(kk.equals(khuvuc)){
+                        mUploads.add(upload);
+                    }
+                    if(khuvuc.equals("-1")){
+                        mUploads.add(upload);
+                    }
+                    Log.d(TAG, "mUploads: " + upload.getpDongxe());
+
                 }
-                Log.d(TAG, "mUploads: " + mUploads.size());
+
                 mAdapter = new ProductAdapter(mUploads, getContext());
                 rcl.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();

@@ -9,69 +9,93 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_taikhoan"
         android:layout_width="match_parent"
-        app:title="Tài Khoản"
-        app:titleTextColor="#ffffff"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/color_all">
-    </androidx.appcompat.widget.Toolbar>
+        android:background="@color/color_all"
+        app:title="Tài Khoản"
+        app:titleTextColor="#ffffff"></androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:background="@color/color_all">
 
-        <ImageView
-            android:id="@+id/img_tkfm"
-            android:layout_width="80dp"
-            android:src="@drawable/account"
-            android:layout_height="80dp"
-            android:layout_margin="3dp" />
-
-        <TextView
-            android:id="@+id/tv_userName_Account"
+        <RelativeLayout
+            android:id="@+id/rlt_acc01"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:layout_marginRight="3dp"
-            android:layout_toRightOf="@id/img_tkfm"
-            android:fontFamily="monospace"
-            android:textSize="18dp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_phone_Account"
-            android:layout_width="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_tkfm"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="20dp"
+                android:src="@color/white"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/tv_name_cut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="10dp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dp"
-            android:layout_below="@id/tv_userName_Account"
-            android:layout_alignLeft="@id/tv_userName_Account"
-            android:fontFamily="monospace"
-            android:text=""
-            android:textSize="18dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/rlt_acc01"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_userName_Account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="monospace"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/tv_phone_Account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/tv_Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/tv_userName_Account"
+            android:layout_marginTop="17dp"
+            android:layout_toRightOf="@id/rlt_acc01"
             android:fontFamily="monospace"
             android:text="Đăng nhập/Đăng ký"
-            android:textColor="@color/color_all"
+            android:textColor="@color/white"
             android:textSize="18dp" />
 
     </RelativeLayout>
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dip"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#999999" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
-            android:id="@+id/ll1"
+            android:id="@+id/ll_1234"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -80,7 +104,8 @@
                 android:id="@+id/img1"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:src="@drawable/store_new"></ImageView>
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/store_new" />
 
             <TextView
                 android:id="@+id/acc_store"
@@ -93,12 +118,91 @@
 
             </TextView>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_1235"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_1234"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_html_green" />
+
+            <TextView
+                android:id="@+id/acc_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="3dp"
+                android:text="Thiết lập tài khoản"
+                android:textSize="18dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_1236"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_1235"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_event_green" />
+
+            <TextView
+                android:id="@+id/acc_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="3dp"
+                android:text="Sự kiện/ khuyến mãi"
+                android:textSize="18dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_1237"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_1236"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_faq_icon" />
+
+            <TextView
+                android:id="@+id/acc_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="3dp"
+                android:text="Trung tâm trợ giúp"
+                android:textSize="18dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <Button
+            android:backgroundTint="@color/color_all"
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="Đăng suất" />
+
     </RelativeLayout>
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Đăng suất" />
 
 
 </LinearLayout>
