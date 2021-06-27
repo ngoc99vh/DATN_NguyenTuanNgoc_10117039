@@ -59,6 +59,7 @@
                 android:background="@drawable/ic_icon_search_header" />
 
             <TextView
+                android:id="@+id/tv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="   Nhập từ khoá tìm kiếm"

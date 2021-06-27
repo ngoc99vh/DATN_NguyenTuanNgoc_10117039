@@ -49,7 +49,7 @@ import java.util.ArrayList;
 
 public class Post extends Fragment {
     private static final String TAG = "ngocnt";
-    long uuid = 0;
+    long uuid ;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btn_upload;
     EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT, edt_dongco;
@@ -105,7 +105,18 @@ public class Post extends Fragment {
 
         mStorageRef = FirebaseStorage.getInstance().getReference("Posts");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    uuid = (snapshot.getChildrenCount());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
         images = new Images();
         // click
         saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
@@ -251,21 +262,6 @@ public class Post extends Fragment {
         String status = "Chưa xác nhận";
         Float gia = Float.valueOf(edt_pirce.getText().toString());
         Float km = Float.valueOf(edt_km.getText().toString());
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    uuid = (snapshot.getChildrenCount());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-//        String uploadId = mDatabaseRef.push().getKey();
-//        assert uploadId != null;
         Posts post = new Posts(uuid+1, tenXe, namSX, dongXe, color, khuvuc, thongtin, userName, status, condition, dongco, images, gia, km);
         mDatabaseRef.child(String.valueOf(uuid + 1)).setValue(post);
         Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();

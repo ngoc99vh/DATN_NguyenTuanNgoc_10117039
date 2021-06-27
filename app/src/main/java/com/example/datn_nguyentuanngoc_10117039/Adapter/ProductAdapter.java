@@ -20,6 +20,7 @@ import com.example.datn_nguyentuanngoc_10117039.Model.Location_model;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.Model.Users;
 import com.example.datn_nguyentuanngoc_10117039.R;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +42,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         this.listsanphams = listsanphams;
         this.context = context;
     }
+
+
 
     @NonNull
     @Override

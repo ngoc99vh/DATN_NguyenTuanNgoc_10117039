@@ -2,6 +2,7 @@ package com.example.datn_nguyentuanngoc_10117039.Fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.ProducrActivity;
+import com.example.datn_nguyentuanngoc_10117039.Activity.SearchActivity;
 import com.example.datn_nguyentuanngoc_10117039.Adapter.AutomakersAdapter;
 import com.example.datn_nguyentuanngoc_10117039.Adapter.Location_Adapter;
 import com.example.datn_nguyentuanngoc_10117039.Adapter.ProductAdapter;
@@ -54,7 +56,7 @@ public class Home extends Fragment {
     ViewFlipper viewFlipper;
     RecyclerView rcl, rcl1;
     ImageView img_location, imageView;
-    TextView tv_location;
+    TextView tv_location,tv_search;
     private DatabaseReference mDatabaseRef;
     private ProductAdapter mAdapter;
     private AutomakersAdapter automakersAdapter;
@@ -68,6 +70,7 @@ public class Home extends Fragment {
     private Location_Adapter location_adapter;
     String NameLocation = "";
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,6 +80,7 @@ public class Home extends Fragment {
 
         // ánh xạ
 
+        tv_search = view.findViewById(R.id.tv_search);
         rcl = view.findViewById(R.id.rcl_home);
         rcl1 = view.findViewById(R.id.rcl_Automakers);
         img_location = view.findViewById(R.id.img_location);
@@ -102,6 +106,13 @@ public class Home extends Fragment {
         rcl1.setLayoutManager(layoutManager1);
         rcl1.setNestedScrollingEnabled(false);
 
+
+        tv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SearchActivity.class));
+            }
+        });
 
         // Dialog
         createDialog(getContext());

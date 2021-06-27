@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_menu_status_acc"
+        android:title="Đã xác nhận"
+        />
+    <item
+        android:id="@+id/item_menu_status_noacc"
+        android:title="Chưa xác nhận"
+        />
+</menu>
