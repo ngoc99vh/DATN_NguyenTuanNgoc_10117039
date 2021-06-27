@@ -1,11 +1,14 @@
 package com.example.datn_nguyentuanngoc_10117039.Activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -40,11 +43,15 @@ public class DetailPostActivity extends AppCompatActivity {
     private Posts posts;
     private DatabaseReference mDatabaseRef;
     Users users;
+    private static SharedPreferences saveInfoAccount;
+    String role = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
+        saveInfoAccount = getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
+        role = saveInfoAccount.getString("role", null);
 
         Intent intent = getIntent();
         posts = (Posts) intent.getSerializableExtra("sanpham");
@@ -53,7 +60,10 @@ public class DetailPostActivity extends AppCompatActivity {
         getUser();
         call();
         sendSMS();
-
+        if(!TextUtils.isEmpty(role) && role.equals("0") ){
+            btn_send.setVisibility(View.GONE);
+            btn_call.setVisibility(View.GONE);
+        }
     }
 
     public void Init() {

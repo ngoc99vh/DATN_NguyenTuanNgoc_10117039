@@ -91,11 +91,12 @@
     </RelativeLayout>
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/ll_1234"
+            android:id="@+id/ll_onbought"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -123,7 +124,7 @@
             android:id="@+id/ll_1235"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_1234"
+            android:layout_below="@+id/ll_onbought"
             android:orientation="horizontal">
 
             <ImageView

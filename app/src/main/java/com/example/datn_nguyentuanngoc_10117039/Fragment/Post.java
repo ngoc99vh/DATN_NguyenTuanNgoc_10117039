@@ -33,8 +33,11 @@ import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -46,10 +49,10 @@ import java.util.ArrayList;
 
 public class Post extends Fragment {
     private static final String TAG = "ngocnt";
-
+    long uuid = 0;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btn_upload;
-    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT,edt_dongco;
+    EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT, edt_dongco;
     ImageView imgPost, imgPost2;
     Uri imgUri1;
     Uri imgUri2;
@@ -248,12 +251,23 @@ public class Post extends Fragment {
         String status = "Chưa xác nhận";
         Float gia = Float.valueOf(edt_pirce.getText().toString());
         Float km = Float.valueOf(edt_km.getText().toString());
+        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    uuid = (snapshot.getChildrenCount());
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        Posts post = new Posts(tenXe,namSX,dongXe,color,khuvuc,thongtin,userName,status,condition,dongco,images,gia,km);
-        String uploadId = mDatabaseRef.push().getKey();
-        assert uploadId != null;
-        mDatabaseRef.child(uploadId).setValue(post);
+            }
+        });
+//        String uploadId = mDatabaseRef.push().getKey();
+//        assert uploadId != null;
+        Posts post = new Posts(uuid+1, tenXe, namSX, dongXe, color, khuvuc, thongtin, userName, status, condition, dongco, images, gia, km);
+        mDatabaseRef.child(String.valueOf(uuid + 1)).setValue(post);
         Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getActivity(), MainActivity.class));
     }

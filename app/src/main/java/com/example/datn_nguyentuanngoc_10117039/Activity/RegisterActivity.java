@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!(snapshot.child("Users").child(userName).exists())){
+                if(!snapshot.child("User").child(userName).exists()){
                     HashMap<String,Object> userdataMap =new HashMap<>();
                     userdataMap.put("userName",userName);
                     userdataMap.put("password",password);
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                     });
 
                 }else {
-                    Toast.makeText(RegisterActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
                 }
             }
 

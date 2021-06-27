@@ -5,9 +5,10 @@ import java.io.Serializable;
 public class Posts implements Serializable {
     private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition, pDongco;
     private Images images;
+    private Long id;
     private Float pPice, pKmuse;
 
-    public Posts(String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse) {
+    public Posts(Long id,String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse) {
         this.pName = pName;
         this.pDate = pDate;
         this.pDongxe = pDongxe;
@@ -21,6 +22,7 @@ public class Posts implements Serializable {
         this.images = images;
         this.pPice = pPice;
         this.pKmuse = pKmuse;
+        this.id = id;
     }
     public Posts(){}
 
@@ -127,5 +129,13 @@ public class Posts implements Serializable {
 
     public void setpKmuse(Float pKmuse) {
         this.pKmuse = pKmuse;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

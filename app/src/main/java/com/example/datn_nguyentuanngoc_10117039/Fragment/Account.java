@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.LoginActivity;
@@ -26,7 +27,9 @@ public class Account extends Fragment {
     Button btn_logout;
     private static SharedPreferences saveInfoAccount;
     private SharedPreferences.Editor editor;
+    LinearLayout linearLayout;
     public String userName = "";
+    String role = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +43,7 @@ public class Account extends Fragment {
         tv_phone = view.findViewById(R.id.tv_phone_Account);
         btn_logout = view.findViewById(R.id.btn_logout);
         acc_store = view.findViewById(R.id.acc_store);
+        linearLayout = view.findViewById(R.id.ll_onbought);
 
         //Sự kiện
         saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
@@ -89,6 +93,7 @@ public class Account extends Fragment {
 
     public void checkData() {
         userName = saveInfoAccount.getString("userName", null);
+        role = saveInfoAccount.getString("role", null);
         if (!TextUtils.isEmpty(userName)) {
             Login.setVisibility(View.GONE);
             tv_userName.setText(userName);
@@ -98,6 +103,9 @@ public class Account extends Fragment {
             Login.setVisibility(View.VISIBLE);
             tv_userName.setText("");
             tv_phone.setText("");
+        }
+        if(!TextUtils.isEmpty(role) && role.equals("0") ){
+            linearLayout.setVisibility(View.GONE);
         }
     }
 

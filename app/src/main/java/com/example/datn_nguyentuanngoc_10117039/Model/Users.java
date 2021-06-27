@@ -3,6 +3,7 @@ package com.example.datn_nguyentuanngoc_10117039.Model;
 public class Users {
     private String userName, phone, password, fullName, address, birthday;
     private String role;
+//    private long id;
 
     public Users(String userName, String phone, String password, String fullName, String address, String role, String birthday) {
         this.userName = userName;
@@ -12,6 +13,7 @@ public class Users {
         this.address = address;
         this.role = role;
         this.birthday = birthday;
+//        this.id = id;
     }
 
     public Users() {
@@ -72,4 +74,12 @@ public class Users {
     public void setRole(String role) {
         this.role = role;
     }
+//
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 }
