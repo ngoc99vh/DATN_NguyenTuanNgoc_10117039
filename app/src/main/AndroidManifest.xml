@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DATN_NguyenTuanNgoc_10117039">
-        <activity android:name=".Activity.SettingActivity"></activity>
+        <activity android:name=".Activity.UserActivity"></activity>
+        <activity android:name=".Activity.SettingActivity" />
         <activity android:name=".Activity.UpdateStoreActivity" />
         <activity android:name=".Activity.SearchActivity" />
         <activity android:name=".Activity.RegisterActivity" />

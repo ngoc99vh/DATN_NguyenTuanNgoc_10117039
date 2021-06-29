@@ -1,5 +1,6 @@
 package com.example.datn_nguyentuanngoc_10117039.Fragment;
 
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,7 +32,9 @@ import android.widget.Toast;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.LoginActivity;
 import com.example.datn_nguyentuanngoc_10117039.Activity.MainActivity;
+import com.example.datn_nguyentuanngoc_10117039.Adapter.Location_Adapter;
 import com.example.datn_nguyentuanngoc_10117039.Model.Images;
+import com.example.datn_nguyentuanngoc_10117039.Model.Location_model;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -74,6 +80,13 @@ public class Post extends Fragment {
     Images images;
     ArrayList<String> listImages = new ArrayList<>();
 
+    private Dialog mDialog;
+    private int mPosition;
+
+    private ArrayList<Location_model> listLocations;
+    private Location_Adapter location_adapter;
+    String id_loacation="";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +100,6 @@ public class Post extends Fragment {
         edt_dongco = view.findViewById(R.id.edt_dongco);
         edt_color = view.findViewById(R.id.edt_color);
         edt_MadeinDate = view.findViewById(R.id.edt_madeinDate);
-        edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
         edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
         edt_pirce = view.findViewById(R.id.edt_pirce);
         edt_km = view.findViewById(R.id.edt_km);
@@ -107,6 +119,15 @@ public class Post extends Fragment {
         }
 
 
+        createDialog(getContext());
+        edt_Khuvuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDialog.show();
+            }
+        });
+
         mStorageRef = FirebaseStorage.getInstance().getReference("Posts");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
@@ -121,6 +142,7 @@ public class Post extends Fragment {
 
             }
         });
+
         images = new Images();
         // click
         saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
@@ -151,6 +173,8 @@ public class Post extends Fragment {
                 uploadFile();
             }
         });
+
+
         return view;
     }
 
@@ -261,19 +285,60 @@ public class Post extends Fragment {
         String dongXe = edt_Dongxe.getText().toString();
         String namSX = edt_MadeinDate.getText().toString();
         String color = edt_color.getText().toString();
-        String khuvuc = edt_Khuvuc.getText().toString();
+        String khuvuc = id_loacation;
         String thongtin = edt_TT.getText().toString();
         String status = "Chưa xác nhận";
         Float gia = Float.valueOf(edt_pirce.getText().toString());
         Float km = Float.valueOf(edt_km.getText().toString());
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String uploadId = mDatabaseRef.push().getKey();
-        Posts post = new Posts(uploadId, tenXe, namSX, dongXe, color, khuvuc, thongtin, userName, status, condition, dongco, images, gia, km,currentDate);
+        Posts post = new Posts(uploadId, tenXe, namSX, dongXe, color, khuvuc, thongtin, userName, status, condition, dongco, images, gia, km,currentDate, currentDate);
         if (uploadId != null) {
             mDatabaseRef.child(uploadId).setValue(post);
         }
         Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(getActivity(), MainActivity.class));
         getActivity().finish();
+    }
+    public void createDialog(Context context) {
+        mDialog = new Dialog(context, R.style.FullScreenDialog);
+        mDialog.setContentView(R.layout.dialog_location);
+        RecyclerView rcl_dialogLocation = mDialog.findViewById(R.id.rcl_location);
+        rcl_dialogLocation.setHasFixedSize(true);
+        rcl_dialogLocation.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listLocations = new ArrayList<>();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("local");
+        mDatabaseRef.orderByChild("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Location_model upload = postSnapshot.getValue(Location_model.class);
+                    listLocations.add(upload);
+                }
+                listLocations.add(0, new Location_model("-1", "Việt Nam", null, "-1"));
+                location_adapter = new Location_Adapter(listLocations, getContext(), mPosition);
+                location_adapter.setTest(new Location_Adapter.Test() {
+                    @Override
+                    public void onClick(View v, int possition) {
+                        mPosition = possition;
+                        Location_model location_model = listLocations.get(possition);
+                        edt_Khuvuc.setText(location_model.getName());
+                        id_loacation= location_model.getId();
+//                        Log.d(TAG, "mUploads: " + location_model.getName());
+                        mDialog.dismiss();
+                    }
+                });
+                rcl_dialogLocation.setAdapter(location_adapter);
+                location_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getActivity(), "Lỗi 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+        WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+        mDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        mDialog.getWindow().setAttributes(layoutParams);
     }
 }

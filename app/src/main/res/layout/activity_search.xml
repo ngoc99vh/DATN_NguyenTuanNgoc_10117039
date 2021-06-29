@@ -8,18 +8,83 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
         <androidx.appcompat.widget.SearchView
+            android:foregroundGravity="center"
             android:id="@+id/searchview_tk"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/bg_search"
             app:queryHint="Tìm kiếm"
             android:iconifiedByDefault="false"
-            android:layout_alignParentTop="true"
-            android:layout_width="320dp"
+            android:layout_width="380dp"
             android:layout_height="40dp">
         </androidx.appcompat.widget.SearchView>
     </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="5dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            >
+            <TextView
+                android:id="@+id/tv_0_50"
+                android:layout_gravity="center"
+                android:text="Dưới 50 triệu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </androidx.cardview.widget.CardView><androidx.cardview.widget.CardView
+            app:cardCornerRadius="5dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            >
+            <TextView
+                android:id="@+id/tv_50_100"
+                android:layout_gravity="center"
+                android:text="50 triệu - 100 triệu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            app:cardCornerRadius="5dp">
+
+            <TextView
+                android:id="@+id/tv_100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Trên 100 triệu">
+
+            </TextView>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_tk"
         android:layout_width="match_parent"

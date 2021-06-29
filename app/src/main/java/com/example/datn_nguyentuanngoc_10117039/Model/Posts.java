@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Posts implements Serializable {
-    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition, pDongco,pCreateat;
+    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition, pDongco,pCreateat, pUpdateat;
     private Images images;
     private String id;
     private Float pPice, pKmuse;
 
-    public Posts(String id,String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse,String pCreateat) {
+    public Posts(String id,String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse,String pCreateat,String pUpdateat) {
         this.pName = pName;
         this.pDate = pDate;
         this.pDongxe = pDongxe;
@@ -25,6 +25,8 @@ public class Posts implements Serializable {
         this.pKmuse = pKmuse;
         this.id = id;
         this.pCreateat = pCreateat;
+        this.pUpdateat = pUpdateat;
+
     }
     public Posts(){}
 
@@ -147,5 +149,13 @@ public class Posts implements Serializable {
 
     public void setpCreateat(String pCreateat) {
         this.pCreateat = pCreateat;
+    }
+
+    public String getpUpdateat() {
+        return pUpdateat;
+    }
+
+    public void setpUpdateat(String pUpdateat) {
+        this.pUpdateat = pUpdateat;
     }
 }

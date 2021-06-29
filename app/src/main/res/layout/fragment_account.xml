@@ -121,7 +121,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_1235"
+            android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_onbought"
@@ -144,12 +144,36 @@
 
             </TextView>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_qltk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_setting"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_html_green" />
+
+            <TextView
+                android:id="@+id/acc_qltk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="3dp"
+                android:text="Quản lý tài khoản"
+                android:textSize="18dp">
+
+            </TextView>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_1236"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_1235"
+            android:layout_below="@+id/ll_qltk"
             android:orientation="horizontal">
 
             <ImageView

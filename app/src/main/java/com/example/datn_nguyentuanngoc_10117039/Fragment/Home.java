@@ -22,9 +22,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -56,7 +58,7 @@ public class Home extends Fragment {
     ViewFlipper viewFlipper;
     RecyclerView rcl, rcl1;
     ImageView img_location, imageView;
-    TextView tv_location,tv_search;
+    TextView tv_location, tv_search;
     private DatabaseReference mDatabaseRef;
     private ProductAdapter mAdapter;
     private AutomakersAdapter automakersAdapter;
@@ -69,7 +71,7 @@ public class Home extends Fragment {
     private ArrayList<Location_model> listLocations;
     private Location_Adapter location_adapter;
     String NameLocation = "";
-
+    Spinner spin_price;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +83,7 @@ public class Home extends Fragment {
         // ánh xạ
 
         tv_search = view.findViewById(R.id.tv_search);
+        spin_price = view.findViewById(R.id.spin_price);
         rcl = view.findViewById(R.id.rcl_home);
         rcl1 = view.findViewById(R.id.rcl_Automakers);
         img_location = view.findViewById(R.id.img_location);
@@ -130,7 +133,6 @@ public class Home extends Fragment {
                 mDialog.show();
             }
         });
-
         return view;
     }
 
@@ -168,7 +170,7 @@ public class Home extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi 1", Toast.LENGTH_SHORT).show();
             }
         });
         WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
@@ -185,10 +187,10 @@ public class Home extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Posts upload = postSnapshot.getValue(Posts.class);
                     String kk = upload.getpKhuvuc();
-                    if(kk.equals(khuvuc)){
+                    if (kk.equals(khuvuc)) {
                         mUploads.add(upload);
                     }
-                    if(khuvuc.equals("-1")){
+                    if (khuvuc.equals("-1")) {
                         mUploads.add(upload);
                     }
                     Log.d(TAG, "mUploads: " + upload.getpDongxe());
@@ -202,7 +204,7 @@ public class Home extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi 2", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -225,7 +227,7 @@ public class Home extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi 3", Toast.LENGTH_SHORT).show();
             }
         });
     }
