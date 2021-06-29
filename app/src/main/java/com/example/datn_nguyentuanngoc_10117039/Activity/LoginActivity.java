@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thành công !!!!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 EventBus.getDefault().post(true,"loginSuccess");
+                                finish();
                             }
 
                         }

@@ -2,6 +2,7 @@ package com.example.datn_nguyentuanngoc_10117039.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,9 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.DetailPostActivity;
+import com.example.datn_nguyentuanngoc_10117039.Activity.UpdateStoreActivity;
 import com.example.datn_nguyentuanngoc_10117039.Model.Location_model;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
@@ -99,8 +102,41 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.item_menu_sua:
+                                Intent intent = new Intent(context, UpdateStoreActivity.class);
+                                intent.putExtra("sanpham", listsanphams.get(position));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
                                 break;
                             case R.id.item_menu_xoa:
+                                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                                alert.setTitle("Xoá bài viết");
+                                alert.setMessage("Bạn có thực sự muốn xoá?");
+                                alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        holder.mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
+                                        holder.mDatabaseRef.orderByChild("id").equalTo(uploadCurrent.getId()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                                                    dataSnapshot.getRef().removeValue();
+                                                    listsanphams.remove(position);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // close dialog
+                                        dialog.cancel();
+                                    }
+                                });
+                                alert.show();
                                 break;
                         }
                         return false;
@@ -136,5 +172,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ViewHolder> 
             tv_khuvuc = itemView.findViewById(R.id.tv_khuvuc_itP);
 
         }
+
     }
 }

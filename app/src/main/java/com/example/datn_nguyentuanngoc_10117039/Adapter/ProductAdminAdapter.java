@@ -157,7 +157,7 @@ public class ProductAdminAdapter extends RecyclerView.Adapter<ProductAdminAdapte
             tv_khuvuc = itemView.findViewById(R.id.khuvuc_product_admin);
 
         }
-        public void updateStatus(String status,long id){
+        public void updateStatus(String status,String id){
             mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
             mDatabaseRef.orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {
                 @Override

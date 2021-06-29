@@ -1,14 +1,15 @@
 package com.example.datn_nguyentuanngoc_10117039.Model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Posts implements Serializable {
-    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition, pDongco;
+    private String pName, pDate, pDongxe, pColor, pKhuvuc, pThongtin, pChuxe,pStatus,pCondition, pDongco,pCreateat;
     private Images images;
-    private Long id;
+    private String id;
     private Float pPice, pKmuse;
 
-    public Posts(Long id,String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse) {
+    public Posts(String id,String pName, String pDate, String pDongxe, String pColor, String pKhuvuc, String pThongtin, String pChuxe, String pStatus, String pCondition, String pDongco, Images images, Float pPice, Float pKmuse,String pCreateat) {
         this.pName = pName;
         this.pDate = pDate;
         this.pDongxe = pDongxe;
@@ -23,6 +24,7 @@ public class Posts implements Serializable {
         this.pPice = pPice;
         this.pKmuse = pKmuse;
         this.id = id;
+        this.pCreateat = pCreateat;
     }
     public Posts(){}
 
@@ -131,11 +133,19 @@ public class Posts implements Serializable {
         this.pKmuse = pKmuse;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getpCreateat() {
+        return pCreateat;
+    }
+
+    public void setpCreateat(String pCreateat) {
+        this.pCreateat = pCreateat;
     }
 }

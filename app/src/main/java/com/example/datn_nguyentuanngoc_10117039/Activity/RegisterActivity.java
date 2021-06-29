@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void postUser(String userName, String password, String phone, String fulName, String birthDay, String address,String role) {
+    private void postUser(String userName, String password, String phone, String fullName, String birthDay, String address,String role) {
         DatabaseReference data;
         data = FirebaseDatabase.getInstance().getReference();
         data.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userdataMap.put("password",password);
                     userdataMap.put("phone",phone);
                     userdataMap.put("role",role);
-                    userdataMap.put("fulName",fulName);
+                    userdataMap.put("fullName",fullName);
                     userdataMap.put("birthDay",birthDay);
                     userdataMap.put("address",address);
                     data.child("User").child(userName).updateChildren(userdataMap).addOnCompleteListener(new OnCompleteListener<Void>() {

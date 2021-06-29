@@ -17,13 +17,14 @@ import android.widget.TextView;
 
 import com.example.datn_nguyentuanngoc_10117039.Activity.LoginActivity;
 import com.example.datn_nguyentuanngoc_10117039.Activity.MainActivity;
+import com.example.datn_nguyentuanngoc_10117039.Activity.SettingActivity;
 import com.example.datn_nguyentuanngoc_10117039.Activity.StoreActivity;
 import com.example.datn_nguyentuanngoc_10117039.R;
 
 import org.simple.eventbus.Subscriber;
 
 public class Account extends Fragment {
-    public TextView Login, tv_userName, tv_phone, acc_store,tv_name_cut;
+    public TextView Login, tv_userName, tv_phone, acc_store,tv_name_cut,acc_setting;
     Button btn_logout;
     private static SharedPreferences saveInfoAccount;
     private SharedPreferences.Editor editor;
@@ -38,6 +39,7 @@ public class Account extends Fragment {
 
         //Ánh xạ
         Login = view.findViewById(R.id.tv_Login);
+        acc_setting = view.findViewById(R.id.acc_setting);
         tv_userName = view.findViewById(R.id.tv_userName_Account);
         tv_name_cut = view.findViewById(R.id.tv_name_cut);
         tv_phone = view.findViewById(R.id.tv_phone_Account);
@@ -54,6 +56,12 @@ public class Account extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), StoreActivity.class));
+            }
+        });
+        acc_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), SettingActivity.class));
             }
         });
 

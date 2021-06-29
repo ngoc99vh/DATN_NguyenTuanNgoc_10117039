@@ -1,31 +1,21 @@
 package com.example.datn_nguyentuanngoc_10117039.Model;
 
-public class Users {
-    private String userName, phone, password, fullName, address, birthday;
-    private String role;
-//    private long id;
+import java.io.Serializable;
 
-    public Users(String userName, String phone, String password, String fullName, String address, String role, String birthday) {
+public class Users {
+    private String userName, phone, password, fullName, address, birthDay;
+    private String role;
+
+    public Users( String address,String birthday, String fullName, String password, String phone, String role,String userName) {
         this.userName = userName;
         this.phone = phone;
         this.password = password;
         this.fullName = fullName;
         this.address = address;
+        this.birthDay = birthday;
         this.role = role;
-        this.birthday = birthday;
-//        this.id = id;
     }
-
-    public Users() {
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
+    public Users(){}
 
     public String getUserName() {
         return userName;
@@ -67,6 +57,14 @@ public class Users {
         this.address = address;
     }
 
+    public String getBirthday() {
+        return birthDay;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthDay = birthday;
+    }
+
     public String getRole() {
         return role;
     }
@@ -74,12 +72,4 @@ public class Users {
     public void setRole(String role) {
         this.role = role;
     }
-//
-//    public long getId() {
-//        return id;
-//    }
-//
-//    public void setId(long id) {
-//        this.id = id;
-//    }
 }

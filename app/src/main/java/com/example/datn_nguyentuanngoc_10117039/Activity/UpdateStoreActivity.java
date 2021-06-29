@@ -1,24 +1,20 @@
-package com.example.datn_nguyentuanngoc_10117039.Fragment;
+package com.example.datn_nguyentuanngoc_10117039.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,14 +22,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.datn_nguyentuanngoc_10117039.Activity.LoginActivity;
-import com.example.datn_nguyentuanngoc_10117039.Activity.MainActivity;
 import com.example.datn_nguyentuanngoc_10117039.Model.Images;
 import com.example.datn_nguyentuanngoc_10117039.Model.Posts;
 import com.example.datn_nguyentuanngoc_10117039.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,14 +39,17 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Post extends Fragment {
+public class UpdateStoreActivity extends AppCompatActivity {
+    private Posts posts;
     private static final String TAG = "ngocnt";
-    long uuid ;
+    long uuid;
     private static final int PICK_IMAGE_REQUEST = 1;
     private Button btn_upload;
     EditText edt_Name, edt_Dongxe, edt_MadeinDate, edt_Khuvuc, edt_color, edt_pirce, edt_km, edt_TT, edt_dongco;
@@ -70,33 +66,21 @@ public class Post extends Fragment {
 
     private static SharedPreferences saveInfoAccount;
     private SharedPreferences.Editor editor;
-    String userName = "";
     Images images;
     ArrayList<String> listImages = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_post, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_update_store);
+        Intent intent = getIntent();
+        posts = (Posts) intent.getSerializableExtra("sanpham");
+        init();
+        getData();
 
-        // ánh xạ
-        btn_upload = view.findViewById(R.id.btn_upload_file);
-        edt_Name = view.findViewById(R.id.edt_nameXe);
-        edt_Dongxe = view.findViewById(R.id.edt_dongxe);
-        edt_dongco = view.findViewById(R.id.edt_dongco);
-        edt_color = view.findViewById(R.id.edt_color);
-        edt_MadeinDate = view.findViewById(R.id.edt_madeinDate);
-        edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
-        edt_Khuvuc = view.findViewById(R.id.edt_khuvuc);
-        edt_pirce = view.findViewById(R.id.edt_pirce);
-        edt_km = view.findViewById(R.id.edt_km);
-        edt_TT = view.findViewById(R.id.edt_themTT);
-        edt_pirce = view.findViewById(R.id.edt_pirce);
-        cbUse = view.findViewById(R.id.check_use_P);
-        cb_Nouse = view.findViewById(R.id.check_nouse_P);
-        imgPost = view.findViewById(R.id.imagePost);
-        imgPost2 = view.findViewById(R.id.imagePost2);
+        mStorageRef = FirebaseStorage.getInstance().getReference("Posts");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
+
 
         if (cbUse.isChecked()) {
             condition = cbUse.getText().toString();
@@ -106,52 +90,65 @@ public class Post extends Fragment {
             condition = cb_Nouse.getText().toString();
         }
 
-
-        mStorageRef = FirebaseStorage.getInstance().getReference("Posts");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+        imgPost.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    uuid = (snapshot.getChildrenCount());
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onClick(View v) {
+                check = 1;
+                openFileChooser();
             }
         });
-        images = new Images();
-        // click
-        saveInfoAccount = getContext().getSharedPreferences("saveInfo", Context.MODE_PRIVATE);
-        userName = saveInfoAccount.getString("userName", null);
-        if (!TextUtils.isEmpty(userName)) {
-            imgPost.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    check = 1;
-                    openFileChooser();
-                }
-            });
 
-            imgPost2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    check = 2;
-                    openFileChooser();
-                }
-            });
-        } else {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-        }
-
+        imgPost2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                check = 2;
+                openFileChooser();
+            }
+        });
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadFile();
+            uploadFile();
             }
         });
-        return view;
+
+    }
+
+    public void init() {
+        btn_upload = findViewById(R.id.btn_upload_file_store);
+        edt_Name = findViewById(R.id.edt_nameXe_store);
+        edt_Dongxe = findViewById(R.id.edt_dongxe_store);
+        edt_dongco = findViewById(R.id.edt_dongco_store);
+        edt_color = findViewById(R.id.edt_color_store);
+        edt_MadeinDate = findViewById(R.id.edt_madeinDate_store);
+        edt_Khuvuc = findViewById(R.id.edt_khuvuc_store);
+        edt_pirce = findViewById(R.id.edt_pirce_store);
+        edt_km = findViewById(R.id.edt_km_store);
+        edt_TT = findViewById(R.id.edt_themTT_store);
+        edt_pirce = findViewById(R.id.edt_pirce_store);
+        cbUse = findViewById(R.id.check_use_P_store);
+        cb_Nouse = findViewById(R.id.check_nouse_P_store);
+        imgPost = findViewById(R.id.imagePost_store);
+        imgPost2 = findViewById(R.id.imagePost2_store);
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void getData() {
+        edt_color.setText(posts.getpColor());
+        edt_Dongxe.setText(posts.getpDongxe());
+        edt_dongco.setText(posts.getpDongco());
+        edt_Name.setText(posts.getpName());
+        edt_MadeinDate.setText(posts.getpDate());
+        edt_Khuvuc.setText(posts.getpKhuvuc());
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.##", otherSymbols);
+        edt_pirce.setText(decimalFormat.format(posts.getpPice()));
+        edt_km.setText(posts.getpKmuse() + "");
+        edt_TT.setText(posts.getpThongtin());
+        Picasso.get().load(posts.getImages().getImage1()).resize(300, 300).centerCrop().into(imgPost);
+        Picasso.get().load(posts.getImages().getImage2()).resize(300, 300).centerCrop().into(imgPost2);
     }
 
     private Handler mHandler = new Handler() {
@@ -178,9 +175,8 @@ public class Post extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == getActivity().RESULT_OK
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
-
             if (check == 1) {
                 imgUri1 = data.getData();
                 Picasso.get().load(imgUri1).resize(300, 300).centerCrop().into(imgPost);
@@ -194,7 +190,7 @@ public class Post extends Fragment {
 
 
     private String getFileExtension(Uri uri) {
-        ContentResolver cR = getActivity().getContentResolver();
+        ContentResolver cR = getApplicationContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
@@ -220,11 +216,11 @@ public class Post extends Fragment {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateStoreActivity.this, "File lớn hơn 10MB", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
 
         if (imgUri2 != null) {
@@ -247,15 +243,14 @@ public class Post extends Fragment {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull @NotNull Exception e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateStoreActivity.this, "File lớn hơn 10MB", Toast.LENGTH_SHORT).show();
                 }
             });
         }
-    }
 
+    }
     private void postFile() {
-        images.setImage1(listImages.get(0));
-        images.setImage2(listImages.get(1));
+        String id = posts.getId();
         String tenXe = edt_Name.getText().toString();
         String dongco = edt_dongco.getText().toString();
         String dongXe = edt_Dongxe.getText().toString();
@@ -267,13 +262,34 @@ public class Post extends Fragment {
         Float gia = Float.valueOf(edt_pirce.getText().toString());
         Float km = Float.valueOf(edt_km.getText().toString());
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        String uploadId = mDatabaseRef.push().getKey();
-        Posts post = new Posts(uploadId, tenXe, namSX, dongXe, color, khuvuc, thongtin, userName, status, condition, dongco, images, gia, km,currentDate);
-        if (uploadId != null) {
-            mDatabaseRef.child(uploadId).setValue(post);
-        }
-        Toast.makeText(getActivity(), "Upload thành công", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getActivity(), MainActivity.class));
-        getActivity().finish();
+        mDatabaseRef.orderByChild("id").equalTo(posts.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child: snapshot.getChildren()) {
+                    String key= child.getKey();
+                    mDatabaseRef.child(key).child("images").child("image1").setValue(listImages.get(0));
+                    mDatabaseRef.child(key).child("images").child("image2").setValue(listImages.get(1));
+                    mDatabaseRef.child(key).child("pColor").setValue(color);
+                    mDatabaseRef.child(key).child("pCondition").setValue(condition);
+                    mDatabaseRef.child(key).child("pCreateat").setValue(currentDate);
+                    mDatabaseRef.child(key).child("pDate").setValue(namSX);
+                    mDatabaseRef.child(key).child("pDongco").setValue(dongco);
+                    mDatabaseRef.child(key).child("pDongxe").setValue(dongXe);
+                    mDatabaseRef.child(key).child("pKhuvuc").setValue(khuvuc);
+                    mDatabaseRef.child(key).child("pThongtin").setValue(thongtin);
+                    mDatabaseRef.child(key).child("pKmuse").setValue(km);
+                    mDatabaseRef.child(key).child("pPice").setValue(gia);
+                    mDatabaseRef.child(key).child("pStatus").setValue(status);
+                    mDatabaseRef.child(key).child("pName").setValue(tenXe);
+                    startActivity(new Intent(UpdateStoreActivity.this,StoreActivity.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }

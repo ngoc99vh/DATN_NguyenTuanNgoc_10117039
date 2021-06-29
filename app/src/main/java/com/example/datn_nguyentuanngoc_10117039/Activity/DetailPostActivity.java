@@ -32,12 +32,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DetailPostActivity extends AppCompatActivity {
     ImageSlider imageSlider;
-    TextView tv_name, tv_dongco, tv_namSX, tv_dongxe, tv_tinhtrang, tv_khuvuc_detail, tv_TTthem_detail, tv_chuxe_detail, tv_sdt_detail, tv_diachi_detail;
+    TextView tv_name, tv_dongco, tv_namSX, tv_dongxe, tv_tinhtrang, tv_khuvuc_detail, tv_TTthem_detail, tv_chuxe_detail, tv_sdt_detail, tv_diachi_detail,tv_pirceProduct;
     Toolbar toolbar;
     Button btn_call, btn_send;
     private Posts posts;
@@ -81,11 +83,15 @@ public class DetailPostActivity extends AppCompatActivity {
         imageSlider = findViewById(R.id.slider);
         tv_dongco = findViewById(R.id.tv_dongco_detail);
         tv_namSX = findViewById(R.id.tv_namSx_detail);
+        tv_pirceProduct = findViewById(R.id.tv_pirceProduct);
         List<SlideModel> slideModels = new ArrayList<>();
         slideModels.add(new SlideModel(posts.getImages().getImage1()));
         slideModels.add(new SlideModel(posts.getImages().getImage2()));
         imageSlider.setImageList(slideModels, true);
-
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.##", otherSymbols);
+        tv_pirceProduct.setText(decimalFormat.format(posts.getpPice())+" đ");
         tv_dongco.setText(posts.getpDongco());
         tv_khuvuc_detail.setText(posts.getpKhuvuc());
         tv_namSX.setText(posts.getpDate());
@@ -103,6 +109,7 @@ public class DetailPostActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     users = postSnapshot.getValue(Users.class);
+                    assert users != null;
                     tv_chuxe_detail.setText(users.getFullName());
                     tv_sdt_detail.setText(users.getPhone());
                     tv_diachi_detail.setText(users.getAddress());

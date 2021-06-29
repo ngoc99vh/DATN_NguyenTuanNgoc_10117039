@@ -58,8 +58,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Posts uploadCurrent = listsanphams.get(position);
         holder.textViewName.setText(uploadCurrent.getpName());
-
-
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
         otherSymbols.setGroupingSeparator('.');
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.##",otherSymbols);

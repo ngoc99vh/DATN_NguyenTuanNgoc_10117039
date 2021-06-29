@@ -48,11 +48,12 @@ public class StoreActivity extends AppCompatActivity {
         loadProduct();
     }
     public void loadProduct() {
-        mUploads = new ArrayList<>();
+
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("Posts");
         mDatabaseRef.orderByChild("pChuxe").equalTo(userName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mUploads = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Posts upload = postSnapshot.getValue(Posts.class);
                     mUploads.add(upload);
